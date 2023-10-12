@@ -29,7 +29,7 @@ export class AppComponent {
   ];
   public opciones = [
     { title: 'Acerca De', url: '/acerca', icon: 'help' },
-    { title: 'Cerrar Sesión', url: '/inicio-sesion', icon: 'log-out' },
+    { title: 'Cerrar Sesión', url: '/inicio-sesion', icon: 'log-out', action: 'logout' },
   ];
   constructor(private router: Router, private afAuth: AngularFireAuth, 
               private toastController: ToastController, private navCtrl: NavController) { }
