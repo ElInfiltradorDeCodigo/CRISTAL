@@ -9,114 +9,33 @@
 </ion-header>
 
 <ion-content fullscreen="true">
-
   <ion-grid>
     <ion-row>
-      <ion-col>
-
-        <ion-card (click)="presentActionSheet()">
+      <ion-col *ngFor="let adeudo of adeudos | async" (click)="presentActionSheet()">
+        <ion-card>
           <ion-card-header>
-            <ion-card-title>Fecha Adeudo Generado: 27/09/2023</ion-card-title>
-            <ion-card-subtitle>Sucursal: PROGOMEX Córdoba</ion-card-subtitle>
+            <ion-card-title>Fecha Adeudo Generado: {{ adeudo.fecha }}</ion-card-title>
+            <ion-card-subtitle>Total a Diferir: {{ adeudo.totalDiferir }}</ion-card-subtitle>
           </ion-card-header>
           <ion-card-content>
             <ion-list>
-
               <ion-item>
-                <ion-label>Pagos Realizados: 3</ion-label>
+                <ion-label>Nombre Cliente: {{ adeudo.nombre_cliente.nombre }} {{ adeudo.nombre_cliente.apellido_p }} {{ adeudo.nombre_cliente.apellido_m }}</ion-label>
               </ion-item>
 
               <ion-item>
-                <ion-label>Adeudo Realizado Por: Luis Angel Altamirano Gonzalez</ion-label>
+                <ion-label>Pago Por Mes: {{ adeudo.meses }}</ion-label>
               </ion-item>
-        
+
               <ion-item>
-                <ion-label>Cliente: Manuel Gonzalo Ramirez</ion-label>
+                <ion-label>Observaciones: {{ adeudo.observaciones }}</ion-label>
               </ion-item>
-      
+              
             </ion-list>
           </ion-card-content>
         </ion-card>
-
-        <ion-card (click)="presentActionSheet()">
-          <ion-card-header>
-            <ion-card-title>Fecha Adeudo Generado: 27/09/2023</ion-card-title>
-            <ion-card-subtitle>Sucursal: PROGOMEX Córdoba</ion-card-subtitle>
-          </ion-card-header>
-          <ion-card-content>
-            <ion-list>
-
-              <ion-item>
-                <ion-label>Cantidad Insumos: 5</ion-label>
-              </ion-item>
-
-              <ion-item>
-                <ion-label>Adeudo Realizado Por: Luis Angel Altamirano Gonzalez</ion-label>
-              </ion-item>
-        
-              <ion-item>
-                <ion-label>Cliente: Antonio Peralta Reyes</ion-label>
-              </ion-item>
-      
-            </ion-list>
-          </ion-card-content>
-        </ion-card>
-
-
-      </ion-col>
-
-      <ion-col>
-
-        <ion-card (click)="presentActionSheet()">
-          <ion-card-header>
-            <ion-card-title>Fecha Adeudo Generado: 25/09/2023</ion-card-title>
-            <ion-card-subtitle>Sucursal: PROGOMEX Córdoba</ion-card-subtitle>
-          </ion-card-header>
-          <ion-card-content>
-            <ion-list>
-
-              <ion-item>
-                <ion-label>Cantidad Insumos: 4</ion-label>
-              </ion-item>
-
-              <ion-item>
-                <ion-label>Adeudo Realizado Por: Luis Angel Altamirano Gonzalez</ion-label>
-              </ion-item>
-        
-              <ion-item>
-                <ion-label>Cliente: Jesus Ezequiel Mendez</ion-label>
-              </ion-item>
-      
-            </ion-list>
-          </ion-card-content>
-        </ion-card>
-
-        <ion-card (click)="presentActionSheet()">
-          <ion-card-header>
-            <ion-card-title>Fecha Adeudo Generado: 24/09/2023</ion-card-title>
-            <ion-card-subtitle>Sucursal: PROGOMEX Córdoba</ion-card-subtitle>
-          </ion-card-header>
-          <ion-card-content>
-            <ion-list>
-
-              <ion-item>
-                <ion-label>Cantidad Insumos: 1</ion-label>
-              </ion-item>
-
-              <ion-item>
-                <ion-label>Adeudo Realizado Por: Luis Angel Altamirano Gonzalez</ion-label>
-              </ion-item>
-        
-              <ion-item>
-                <ion-label>Cliente: Jesus Maldonado Perez</ion-label>
-              </ion-item>
-      
-            </ion-list>
-          </ion-card-content>
-        </ion-card>
-
       </ion-col>
     </ion-row>
   </ion-grid>
-
 </ion-content>
+

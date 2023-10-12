@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActionSheetController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-adeudos',
@@ -10,8 +12,10 @@ import { AlertController } from '@ionic/angular';
 })
 export class AdeudosPage implements OnInit {
 
+  adeudos!: Observable<any[]>;
+
   constructor(private actionSheetCtrl: ActionSheetController, private router: Router,
-    private alertController: AlertController) { }
+    private alertController: AlertController, private db: AngularFireDatabase) { }
 
   async presentActionSheet() {
     const actionSheet = await this.actionSheetCtrl.create({
@@ -85,6 +89,7 @@ export class AdeudosPage implements OnInit {
   }
 
   ngOnInit() {
+    this.adeudos = this.db.list('ADEUDOS').valueChanges();
   }
 
 }
