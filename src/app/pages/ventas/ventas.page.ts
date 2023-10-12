@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActionSheetController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { Observable } from 'rxjs';
+
 
 
 @Component({
@@ -11,8 +14,10 @@ import { AlertController } from '@ionic/angular';
 })
 export class VentasPage implements OnInit {
 
+  public ventas!: Observable<any[]>;
+
   constructor(private actionSheetCtrl: ActionSheetController, private router: Router,
-    private alertController: AlertController) { }
+    private alertController: AlertController, private db: AngularFireDatabase) { }
 
   async presentActionSheet() {
     const actionSheet = await this.actionSheetCtrl.create({
@@ -76,6 +81,21 @@ export class VentasPage implements OnInit {
   }
 
   ngOnInit() {
+
+    this.ventas = this.obtenerVentas();
+
+  }
+
+  obtenerVentas(): Observable<any[]> {
+    return this.db.list('VENTAS').valueChanges();
+  }
+
+  getCantidadProductos(venta: any): number {
+    return venta.productos.length;
+  }
+
+  getNombreCompleto(nombre_cliente: any): string {
+    return `${nombre_cliente.nombre} ${nombre_cliente.apellido_p} ${nombre_cliente.apellido_m}`;
   }
 
 }
