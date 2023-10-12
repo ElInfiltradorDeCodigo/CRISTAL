@@ -1,0 +1,81 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>Inicio</ion-title>
+    <ion-menu-button slot="start"></ion-menu-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+
+  <h1>Bienvenido: Administrador MD!</h1>
+  
+  <h3>Acciones Rapidas</h3>
+
+  <ion-grid style="margin-bottom: 40px;">
+    <ion-row>
+      <ion-col style="margin-bottom: 15px;" size="6">
+
+        <ion-img style="height: 100px; width: 100px; margin: 0 auto; margin-top: 20px; margin-bottom: 20px;" 
+                 src="../../../assets/resources/agregarempleado.png">
+
+        </ion-img>
+
+        <ion-button expand="block" style="max-width: 200px; margin: 0 auto;" color="secondary"
+                    [routerLink]="['/agregar-empleado']">Registrar Empleado</ion-button>
+
+      </ion-col>
+
+      <ion-col style="margin-bottom: 15px;" size="6">
+
+        <ion-img style="height: 100px; width: 100px; margin: 0 auto; margin-top: 20px; margin-bottom: 20px;" 
+                 src="../../../assets/resources/agregarproductor.png">
+
+        </ion-img>
+
+        <ion-button expand="block" style="max-width: 200px; margin: 0 auto;" color="secondary"
+                    [routerLink]="['/agregar-productor']">Registrar Productor</ion-button>
+
+      </ion-col>
+
+      <ion-col size="6">
+
+        <ion-img style="height: 100px; width: 100px; margin: 0 auto; margin-top: 20px; margin-bottom: 20px;" 
+                 src="../../../assets/resources/verificarventa.png">
+
+        </ion-img>
+
+        <ion-button expand="block" style="max-width: 200px; margin: 0 auto;" color="secondary"
+                    [routerLink]="['/agregar-venta']">Registrar Venta</ion-button>
+
+      </ion-col>
+
+      <ion-col size="6">
+
+        <ion-img style="height: 100px; width: 100px; margin: 0 auto; margin-top: 20px; margin-bottom: 20px;" 
+                 src="../../../assets/resources/atrasado.png">
+
+        </ion-img>
+
+        <ion-button expand="block" style="max-width: 200px; margin: 0 auto;" color="secondary"
+                    [routerLink]="['/agregar-adeudo']">Registrar Adeudo</ion-button>
+
+      </ion-col>
+      
+    </ion-row>
+  </ion-grid>
+
+    <h3>Insumos Vendidos En Mes Actual</h3>
+
+    <div style="display: block;">
+      <canvas baseChart
+              [datasets]="barChartData"
+              [labels]="barChartLabels"
+              [options]="barChartOptions"
+              [legend]="barChartLegend"
+              ></canvas>
+    </div>
+  
+    <script src="node_modules/chart.js/src/chart.js"></script>
+
+
+</ion-content>

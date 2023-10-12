@@ -1,0 +1,65 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button 
+        defaultHref="/sucursales"
+        color="secondary">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title>Registrar Sucursal</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+
+  <h1>Datos De La Sucursal:</h1>
+
+  <div class="datosCambio">
+
+    <form [formGroup]="sucursalForm" (ngSubmit)="registerSucursal()">
+
+      <ion-item>
+        <img [src]="imagePreview" 
+             alt="Click para seleccionar una imagen" 
+             (click)="fileInput.click()"
+             style="width: 95px; height: 95px; cursor: pointer; margin: 0 auto; margin-bottom: 15px;">
+        <input type="file" #fileInput (change)="onImageSelected($event)" style="display: none;">
+        </ion-item>
+
+        <ion-item>
+          <ion-input formControlName="nombre_sucursal" label="Nombre Sucursal:" [counter]="true"
+            maxlength="50" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input formControlName="tipo_sucursal" label="Tipo Sucursal:" [counter]="true"
+            maxlength="20" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input formControlName="colonia" label="Colonia:" [counter]="true"
+            maxlength="45" value="Gonzalez" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input formControlName="codigo_postal" label="C.P:" [counter]="true" 
+            onkeypress="return (event.charCode >= 48 && event.charCode <= 57)"
+            maxlength="5" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input formControlName="localidad" label="Localidad y Estado:" [counter]="true"
+            maxlength="70" required></ion-input>
+        </ion-item>
+
+    <div class="btn">
+      <ion-button expand="block" style="max-width: 200px; margin: 0 auto;" 
+                  color="secondary" (click)="registerSucursal()" [disabled]="sucursalForm.invalid">Registrar</ion-button>
+  </div>
+
+</form>
+
+</div>
+
+</ion-content>
+

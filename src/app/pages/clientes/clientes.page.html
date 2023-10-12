@@ -1,0 +1,36 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button slot="start"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Productores</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+
+        <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+          <ion-fab-button [routerLink]="['/agregar-productor']" color="secondary">
+            <ion-icon name="person-add"></ion-icon>
+          </ion-fab-button>
+        </ion-fab>
+
+        <h1>Productores Registrados</h1>
+
+        <ion-list [inset]="true">
+          <ion-item *ngFor="let productor of productores | async" (click)="presentActionSheet()">
+            <ion-thumbnail slot="start">
+              <img [src]="productor.imageUrl" style="width: 65px; height: 65px;" />
+            </ion-thumbnail>
+            <ion-label>
+              <h2>{{ productor.nombre }}</h2>
+              <h2>{{ productor.apellido_p }}</h2>
+              <h2>{{ productor.apellido_m }}</h2>
+              <h2>{{ productor.telefono }}</h2>
+              <h2>{{ productor.localidad }}</h2>
+              <h2>{{ productor.estado }}</h2>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+
+</ion-content>

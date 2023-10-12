@@ -1,0 +1,47 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button 
+        defaultHref="/departamentos"
+        color="secondary">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title>Registrar Departamento</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <form [formGroup]="form" (ngSubmit)="datosCambiados()">
+    <ion-list>
+    
+      <ion-item>
+        <ion-label position="stacked">Nombre Departamento:</ion-label>
+        <ion-input formControlName="nombre_departamento" maxlength="50" required></ion-input>
+      </ion-item>
+    
+      <ion-item>
+        <ion-label position="floating">Sucursal Dirigida:</ion-label>
+        <ion-select formControlName="sucursal">
+          <ion-select-option *ngFor="let suc of sucursales" [value]="suc.uid">{{suc.nombre_sucursal}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    
+      <ion-item>
+        <ion-label position="stacked">Fecha Creación:</ion-label>
+        <ion-input formControlName="fecha_creacion" maxlength="45" required></ion-input>
+      </ion-item>
+    
+      <ion-item>
+        <ion-label position="stacked">Creado Por:</ion-label>
+        <ion-input [disabled]="true" formControlName="autor" maxlength="70" required></ion-input>
+      </ion-item>
+    
+    </ion-list>
+    
+    <div class="btn">
+      <ion-button expand="block" style="max-width: 200px; margin: 20px auto;" type="submit" 
+                  color="secondary" [disabled]="form.invalid">Registrar</ion-button>
+    </div>
+  </form>
+</ion-content>
+

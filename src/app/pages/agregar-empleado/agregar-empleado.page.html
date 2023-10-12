@@ -1,0 +1,91 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button 
+        defaultHref="/empleados"
+        color="secondary">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title>Registrar Empleado</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true">
+
+  <h1>Registro De Empleado</h1>
+
+  <form [formGroup]="empleadoForm">
+
+    <ion-list>
+
+        <ion-item>
+        <img [src]="imagePreview" 
+             alt="Click para seleccionar una imagen" 
+             (click)="fileInput.click()"
+             style="width: 95px; height: 95px; cursor: pointer; margin: 0 auto; margin-bottom: 15px;">
+        <input type="file" #fileInput (change)="onImageSelected($event)" style="display: none;">
+        </ion-item>
+
+        <ion-item>
+          <ion-input formControlName="nombre" label="Nombre:" 
+            maxlength="45" required></ion-input>
+        </ion-item>
+        <ion-item *ngIf="empleadoForm.get('nombre')?.invalid && (empleadoForm.get('nombre')?.dirty || empleadoForm.get('nombre')?.touched)">
+          <ion-label color="danger" position="stacked">Por favor, introduce un nombre válido</ion-label>
+      </ion-item>
+  
+        <ion-item>
+          <ion-input formControlName="apellido_p" label="Apellido Paterno:" 
+            maxlength="45" required></ion-input>
+        </ion-item>
+  
+        <ion-item>
+          <ion-input formControlName="apellido_m" label="Apellido Materno:" 
+            maxlength="45" required></ion-input>
+        </ion-item>
+  
+        <ion-item>
+          <ion-input formControlName="telefono" label="Teléfono:" 
+            onkeypress="return (event.charCode >= 48 && event.charCode <= 57)"
+            maxlength="10" required></ion-input>
+        </ion-item>
+  
+        <ion-item>
+          <ion-input formControlName="correo" label="Correo Acceso:" 
+            maxlength="50" type="email" required></ion-input>
+        </ion-item>
+  
+        <ion-item>
+          <ion-input formControlName="contrasena" label="Contraseña:" 
+            maxlength="50" type="password" required></ion-input>
+        </ion-item>
+  
+        <ion-item>
+          <ion-label>Sucursal:</ion-label>
+          <ion-select formControlName="sucursal" (ionChange)="filtrarDepartamentos()" placeholder="Seleccionar Sucursal">
+            <ion-select-option *ngFor="let sucursal of sucursales" [value]="sucursal.nombre_sucursal">
+              {{ sucursal.nombre_sucursal }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+  
+        <ion-item>
+          <ion-label>Departamento:</ion-label>
+          <ion-select formControlName="departamento" placeholder="Seleccionar Departamento">
+            <ion-select-option *ngFor="let departamento of departamentosFiltrados" [value]="departamento.nombre">
+              {{ departamento.nombre }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+  
+    <div class="btn">
+      <ion-button style="max-width: 200px; margin: 0 auto;" [disabled]="empleadoForm.invalid"
+                  color="secondary" (click)="registerEmpleado()">Registrar Empleado</ion-button>
+    </div>
+
+    </ion-list>
+
+  </form>
+  
+
+</ion-content>

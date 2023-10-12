@@ -1,0 +1,47 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>Inicio Sesión</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Inicio Sesión</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-img class="logoSesion"
+  src="../../../assets/img/logo_get.png"
+  alt="Logo Empresa"
+  style="height: 220px; width: 220px; margin-top: 75px; margin-bottom: 50px;"
+></ion-img>
+
+  <form>
+    <ion-item>
+      <ion-label position="floating">
+        <ion-icon name="mail-outline" item-start class="text-primary"></ion-icon>
+        Correo Electrónico
+      </ion-label>
+      <ion-input maxlength="50" [(ngModel)]="email" type="email" name="email" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">
+        <ion-icon name="lock-closed-outline" item-start class="text-primary"></ion-icon>
+        Contraseña
+      </ion-label>
+      <ion-input maxlength="50" [(ngModel)]="password" [type]="isPasswordVisible ? 'text' : 'password'" name="password" required></ion-input>
+      <ion-icon name="eye-outline" slot="end" (click)="togglePasswordVisibility()"></ion-icon>
+    </ion-item>
+
+    <div class="btnSesion">
+
+      <ion-button expand="block" style="max-width: 200px; margin: 0 auto;" color="secondary" 
+                  (click)="datosCambiados()">Iniciar Sesión</ion-button>
+
+    </div>
+
+  </form>
+
+</ion-content>

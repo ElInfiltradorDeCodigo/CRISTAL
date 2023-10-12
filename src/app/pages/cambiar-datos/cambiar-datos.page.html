@@ -1,0 +1,58 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button 
+        defaultHref="/perfil"
+        color="secondary">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title>Actualizar Mis Datos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+
+  <h1>Actualización Datos:</h1>
+
+    <div class="datosCambio">
+
+        <ion-list>
+          <ion-list>
+            <ion-item>
+              <ion-input [(ngModel)]="nombre" label="Nombre:" [counter]="true"
+                maxlength="45" value="Luis Angel" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-input [(ngModel)]="apellido_p" label="Apellido Paterno:" [counter]="true"
+                maxlength="45" value="Altamirano" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-input [(ngModel)]="apellido_m" label="Apellido Materno:" [counter]="true"
+                maxlength="45" value="Gonzalez" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-input [(ngModel)]="telefono" label="Teléfono:" [counter]="true" 
+                onkeypress="return (event.charCode >= 48 && event.charCode <= 57)"
+                maxlength="10" value="2711045217" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-input [(ngModel)]="contrasena" label="Contraseña:" [counter]="true"
+                maxlength="50" type="password" value="PROGOMEX" required></ion-input>
+            </ion-item>
+
+          </ion-list>
+        </ion-list>
+
+        <div class="btn">
+          <ion-button expand="block" style="max-width: 200px; margin: 0 auto;" 
+                      color="secondary" (click)="datosCambiados()" [routerLink]="['/perfil']">Actualizar</ion-button>
+      </div>
+
+    </div>
+
+</ion-content>
+

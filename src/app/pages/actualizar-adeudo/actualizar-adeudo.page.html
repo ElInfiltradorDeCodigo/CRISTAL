@@ -1,0 +1,57 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button 
+        defaultHref="/adeudos"
+        color="secondary">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title>Actualizar Adeudo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+
+  <h1>Actualización Datos Adeudo</h1>
+
+  <div class="datosCambio">
+
+    <ion-list>
+      <ion-list>
+
+        <ion-item>
+          <ion-input disabled="true" [(ngModel)]="telefono" label="Deuda Total: $4785.89" [counter]="true" 
+            onkeypress="return (event.charCode >= 48 && event.charCode <= 57)"
+            maxlength="10" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input [(ngModel)]="apellido_m" label="Meses A Diferir:" [counter]="true" 
+            onkeypress="return (event.charCode >= 48 && event.charCode <= 57)"
+            maxlength="2" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input disabled="true" [(ngModel)]="apellido_p" label="Pago Por Mes:" [counter]="true" 
+            onkeypress="return (event.charCode >= 48 && event.charCode <= 57)"
+            maxlength="10" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input value="0" label="Adeudo Anterior:" [counter]="true" 
+            onkeypress="return (event.charCode >= 48 && event.charCode <= 57)"
+            maxlength="10" required></ion-input>
+        </ion-item>
+        
+
+      </ion-list>
+    </ion-list>
+
+    <div class="btn">
+      <ion-button expand="block" style="max-width: 200px; margin: 0 auto;" 
+                  color="secondary" (click)="datosCambiados()" [routerLink]="['/adeudos']">Actualizar</ion-button>
+  </div>
+
+</div>
+
+</ion-content>

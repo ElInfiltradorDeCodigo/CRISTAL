@@ -1,0 +1,129 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button slot="start" color="secondary"></ion-back-button>
+      <ion-menu-button slot="start"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Ventas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button [routerLink]="['/agregar-venta']" color="secondary">
+      <ion-icon name="bag-add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+
+        <ion-card (click)="presentActionSheet()">
+          <ion-card-header>
+            <ion-card-title>Fecha Venta: 27/09/2023</ion-card-title>
+            <ion-card-subtitle>Sucursal: PROGOMEX Córdoba</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-list>
+
+              <ion-item>
+                <ion-label>Cantidad Insumos: 3</ion-label>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Venta Realizada Por: Luis Angel Altamirano Gonzalez</ion-label>
+              </ion-item>
+        
+              <ion-item>
+                <ion-label>Productor Cliente: Manuel Gonzalo Ramirez</ion-label>
+              </ion-item>
+      
+            </ion-list>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card (click)="presentActionSheet()">
+          <ion-card-header>
+            <ion-card-title>Fecha Venta: 26/09/2023</ion-card-title>
+            <ion-card-subtitle>Sucursal: PROGOMEX Córdoba</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-list>
+
+              <ion-item>
+                <ion-label>Cantidad Insumos: 2</ion-label>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Venta Realizada Por: Luis Angel Altamirano Gonzalez</ion-label>
+              </ion-item>
+        
+              <ion-item>
+                <ion-label>Productor Cliente: Francisco Crisostomo Landez</ion-label>
+              </ion-item>
+      
+            </ion-list>
+          </ion-card-content>
+        </ion-card>
+
+
+      </ion-col>
+
+      <ion-col>
+
+        <ion-card (click)="presentActionSheet()">
+          <ion-card-header>
+            <ion-card-title>Fecha Venta: 25/09/2023</ion-card-title>
+            <ion-card-subtitle>Sucursal: PROGOMEX Córdoba</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-list>
+
+              <ion-item>
+                <ion-label>Cantidad Insumos: 4</ion-label>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Venta Realizada Por: Luis Angel Altamirano Gonzalez</ion-label>
+              </ion-item>
+        
+              <ion-item>
+                <ion-label>Productor Cliente: Antonio Peralta Reyes</ion-label>
+              </ion-item>
+      
+            </ion-list>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card (click)="presentActionSheet()">
+          <ion-card-header>
+            <ion-card-title>Fecha Venta: 24/09/2023</ion-card-title>
+            <ion-card-subtitle>Sucursal: PROGOMEX Córdoba</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-list>
+
+              <ion-item>
+                <ion-label>Cantidad Insumos: 1</ion-label>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Venta Realizada Por: Luis Angel Altamirano Gonzalez</ion-label>
+              </ion-item>
+        
+              <ion-item>
+                <ion-label>Productor Cliente: Jesus Maldonado Perez</ion-label>
+              </ion-item>
+      
+            </ion-list>
+          </ion-card-content>
+        </ion-card>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
+

@@ -1,0 +1,38 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+      <ion-menu-button slot="start"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Insumos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button [routerLink]="['/agregar-insumo']" color="secondary">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6" *ngFor="let insumo of insumos"> 
+        <ion-card (click)="presentActionSheet()" class="mis-tarjetas">
+            <img [src]="insumo.imageUrl" style="width: 150px; height: 150px;" />
+            <ion-card-header>
+              <ion-card-title>{{ insumo.nombre }}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <h2>Clave: {{ insumo.clave }}</h2>
+              <h2>Unidad: {{ insumo.unidad }}</h2>
+              <h2>Existencia: {{ insumo.existencia }}</h2>
+              <h2>Precio: {{ insumo.precio }}</h2>
+            </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

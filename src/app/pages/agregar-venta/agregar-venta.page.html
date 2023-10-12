@@ -1,0 +1,115 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button 
+        defaultHref="/ventas"
+        color="secondary">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title>Registrar Venta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true">
+
+  <h1>Datos De La Venta</h1>
+
+  <form [formGroup]="ventaForm">
+
+    <ion-item>
+      <ion-select formControlName="nombre_cliente" (ionChange)="productorSeleccionado($event)">
+        <ion-select-option value="" disabled selected>Seleccione un productor</ion-select-option>
+        <ion-select-option *ngFor="let productor of productores" [value]="productor">
+            {{productor.nombre}} {{productor.apellido_p}} {{productor.apellido_m}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-input formControlName="telefono_cliente" label="Telefono Productor:" [counter]="true" [readonly]="true"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input formControlName="empleado" label="Empleado:" [readonly]="true"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input disabled="true" label="Fecha Venta:" value="{{fechaFormateada}}" [counter]="true"
+        required></ion-input>
+    </ion-item>
+
+    <div formArrayName="productos">
+      <div *ngFor="let productoCtrl of productos.controls; let i = index" [formGroupName]="i">
+
+        <ion-item>
+          <ion-select formControlName="nombre" (ionChange)="cargarPrecio($event, i)">
+            <ion-select-option value="" disabled selected>Seleccione un insumo</ion-select-option>
+            <ion-select-option *ngFor="let insumo of insumos" [value]="insumo.nombre">
+              {{insumo.nombre}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Cantidad</ion-label>
+          <ion-input formControlName="cantidad" (ionInput)="calcularTotal()"></ion-input>
+        </ion-item>
+        <div *ngIf="productoCtrl.get('cantidad')!.hasError('pattern')">
+          <p style="color: red;">Ingrese un número válido con hasta 2 decimales</p>
+        </div>        
+
+        <ion-item>
+          <ion-label>Precio</ion-label>
+          <ion-input formControlName="precio" [readonly]="true"></ion-input>
+        </ion-item>
+
+        <div class="btn">
+          <ion-button style="max-width: 200px; margin: 0 auto; text-align: center; font: 1em sans-serif; margin-top: 15px;" 
+                    (click)="eliminarProducto(i)" color="danger" fill="outline">
+          <ion-icon name="trash-outline"></ion-icon> Eliminar Insumo
+          </ion-button>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="btn">
+      <ion-button style="max-width: 200px; margin: 0 auto; text-align: center; font: 1em sans-serif; margin-top: 15px;" 
+                (click)="agregarProducto()" color="success" fill="outline">
+      <ion-icon name="add"></ion-icon> Agregar Insumo
+      </ion-button>
+    </div>
+
+
+      <ion-item>
+        <ion-input formControlName="total" label="Total:" [counter]="true" [readonly]="true"></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label>Venta A Credito</ion-label>
+        <ion-checkbox formControlName="mostrarCampos" (ionChange)="toggleCampos()"></ion-checkbox>
+      </ion-item>
+
+      <ion-list>
+        <div [hidden]="!ventaForm.get('mostrarCampos')?.value">
+          <ion-item>
+            <ion-input formControlName="totalDiferir" [readonly]="true" label="Total A Diferir:" [counter]="true"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input formControlName="meses" [readonly]="true" label="Pago Por Mes:" [counter]="true"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input formControlName="observaciones" label="Observaciones:" [counter]="true"></ion-input>
+          </ion-item>
+        </div>
+      </ion-list>
+
+  <div class="btn">
+    <ion-button expand="block" style="max-width: 200px; margin: 0 auto;" 
+                color="secondary" (click)="datosCambiados()"
+                [disabled]="ventaForm.invalid">Registrar</ion-button>
+  </div>
+
+</form>
+
+</ion-content>

@@ -1,0 +1,7 @@
+{
+  "name": "PROGOMEX",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

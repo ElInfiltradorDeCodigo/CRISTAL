@@ -1,0 +1,65 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button 
+        defaultHref="/sucursales"
+        color="secondary">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title>Actualizar Sucursal</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+
+  <h1>Actualización Datos Sucursal</h1>
+
+  <div class="datosCambio">
+
+    <ion-list>
+      <ion-list>
+        <ion-item>
+          <ion-img
+            src="../../../assets/img/add-image.png"
+            alt="The Wisconsin State Capitol building in Madison, WI at night"
+            style="height: 95px; width: 95px; margin: 0 auto;">
+          </ion-img>
+        </ion-item>
+        <ion-item>
+          <ion-input [(ngModel)]="nombre_sucursal" label="Nombre Sucursal:" [counter]="true"
+            maxlength="50" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input [(ngModel)]="tipo_sucursal" label="Tipo Sucursal:" [counter]="true"
+            maxlength="20" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input [(ngModel)]="colonia" label="Colonia:" [counter]="true"
+            maxlength="45" value="Gonzalez" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input [(ngModel)]="codigo_postal" label="C.P:" [counter]="true" 
+            onkeypress="return (event.charCode >= 48 && event.charCode <= 57)"
+            maxlength="5" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input [(ngModel)]="localidad" label="Localidad y Estado:" [counter]="true"
+            maxlength="70" required></ion-input>
+        </ion-item>
+
+      </ion-list>
+    </ion-list>
+
+    <div class="btn">
+      <ion-button expand="block" style="max-width: 200px; margin: 0 auto;" 
+                  color="secondary" (click)="datosCambiados()" [routerLink]="['/sucursales']">Actualizar</ion-button>
+  </div>
+
+</div>
+
+</ion-content>
+

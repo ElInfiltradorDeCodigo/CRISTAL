@@ -1,0 +1,63 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button 
+        defaultHref="/insumos"
+        color="secondary">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title>Registrar Insumo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+
+  <h1>Registro De Insumo</h1>
+
+  <form [formGroup]="empleadoForm">
+
+    <ion-list>
+
+        <ion-item>
+          <img [src]="imagePreview" 
+               alt="Click para seleccionar una imagen" 
+               (click)="fileInput.click()"
+               style="width: 95px; height: 95px; cursor: pointer; margin: 0 auto; margin-bottom: 15px;">
+          <input type="file" #fileInput (change)="oonImageSelected($event)" style="display: none;">
+          </ion-item>
+
+          <ion-item>
+            <ion-input formControlName="nombre" label="Nombre:" 
+              maxlength="50" required></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-input formControlName="clave" label="Clave:" 
+              maxlength="45" required></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-input formControlName="unidad" label="Unidad:" 
+              maxlength="5" required></ion-input>
+          </ion-item>
+
+        <ion-item>
+          <ion-input formControlName="precio" label="Precio" 
+                     type="number" maxlength="5" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input formControlName="existencia" label="Existencia" 
+                     type="number" maxlength="5" required></ion-input>
+        </ion-item>
+
+        <div class="btn">
+          <ion-button style="max-width: 200px; margin: 0 auto;" [disabled]="empleadoForm.invalid"
+                      color="secondary" (click)="registerProductor()">Registrar Insumo</ion-button>
+        </div>
+
+</ion-list>
+  
+</form>
+
+</ion-content>

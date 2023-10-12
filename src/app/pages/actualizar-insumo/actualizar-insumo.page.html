@@ -1,0 +1,65 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button 
+        defaultHref="/insumos"
+        color="secondary">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title>Actualizar Insumo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+
+  <h1>Actualización De Insumo</h1>
+
+  <div class="datosCambio">
+
+    <ion-list>
+      <ion-list>
+        <ion-item>
+          <ion-img
+            src="../../../assets/img/add-image.png"
+            alt="The Wisconsin State Capitol building in Madison, WI at night"
+            style="height: 95px; width: 95px; margin: 0 auto;">
+          </ion-img>
+        </ion-item>
+        <ion-item>
+          <ion-input [(ngModel)]="nombre" label="Nombre:" [counter]="true"
+            maxlength="50" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input [(ngModel)]="apellido_p" label="Clave:" [counter]="true"
+            maxlength="45" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input [(ngModel)]="apellido_m" label="Unidad:" [counter]="true"
+            maxlength="5" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input [(ngModel)]="telefono" label="Precio:" [counter]="true" 
+            onkeypress="return (event.charCode >= 48 && event.charCode <= 57)"
+            maxlength="5" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input [(ngModel)]="existencia" label="Existencia:" [counter]="true" 
+            onkeypress="return (event.charCode >= 48 && event.charCode <= 57)"
+            maxlength="5" required></ion-input>
+        </ion-item>
+
+      </ion-list>
+    </ion-list>
+
+    <div class="btn">
+      <ion-button expand="block" style="max-width: 200px; margin: 0 auto;" 
+                  color="secondary" (click)="datosCambiados()" [routerLink]="['/insumos']">Actualizar</ion-button>
+  </div>
+
+</div>
+
+</ion-content>

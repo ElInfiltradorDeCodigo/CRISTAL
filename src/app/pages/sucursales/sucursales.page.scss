@@ -1,0 +1,16 @@
+.eliminar{
+
+    color: red;
+}
+
+ion-fab {
+    margin-bottom: 20px;
+  }
+
+  ion-card img {
+    width: 100%;  // Asegura que la imagen siempre tome el 100% del ancho del contenedor.
+    height: 150px;  // Puedes ajustar esto a tu preferencia.
+    object-fit: cover;  // Asegura que la imagen cubra el área sin estirarse.
+    border-top-left-radius: 10px;  // Añadir bordes redondeados si tu ion-card tiene alguno.
+    border-top-right-radius: 10px;  // Añadir bordes redondeados si tu ion-card tiene alguno.
+}

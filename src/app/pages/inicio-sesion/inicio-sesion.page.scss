@@ -1,0 +1,48 @@
+
+  ion-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+  
+  ion-item {
+    margin-bottom: 15px;
+  }
+  
+  .btn{
+
+    padding: 10px 20px 10px 20px;
+    border-radius: 10px;
+
+  }
+
+  .logoSesion{
+
+    margin-bottom: 55px;
+    margin-top: 55px;
+    align-items: center;
+    align-self: center;
+    align-content: center;
+    margin:0 auto;
+
+}
+
+.btnSesion{
+
+  text-align: center;
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  margin-top: 15px;
+
+}
+
+.toast-custom {
+  background-color: #333;
+  color: #fff;
+  font-size: 26px;
+  border-radius: 10px;
+  padding: 16px;
+}

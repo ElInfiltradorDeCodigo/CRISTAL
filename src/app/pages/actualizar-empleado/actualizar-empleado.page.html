@@ -1,0 +1,80 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button 
+        defaultHref="/empleados"
+        color="secondary">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title>Actualizar Empleado</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+
+  <h1>Actualización Datos Empleado</h1>
+
+  <div class="datosCambio">
+
+    <ion-list>
+      <ion-list>
+        <ion-item>
+          <ion-img
+            src="../../../assets/img/add-image.png"
+            alt="The Wisconsin State Capitol building in Madison, WI at night"
+            style="height: 95px; width: 95px; margin: 0 auto;">
+          </ion-img>
+        </ion-item>
+        <ion-item>
+          <ion-input [(ngModel)]="nombre" label="Nombre:" [counter]="true"
+            maxlength="45" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input [(ngModel)]="apellido_p" label="Apellido Paterno:" [counter]="true"
+            maxlength="45" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input [(ngModel)]="apellido_m" label="Apellido Materno:" [counter]="true"
+            maxlength="45" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input [(ngModel)]="telefono" label="Teléfono:" [counter]="true" 
+            onkeypress="return (event.charCode >= 48 && event.charCode <= 57)"
+            maxlength="10" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input [(ngModel)]="correo" label="Correo Acceso:" [counter]="true"
+            maxlength="50" type="email" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input [(ngModel)]="contrasena" label="Contraseña:" [counter]="true"
+            maxlength="50" type="password" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input [(ngModel)]="sucursal" label="Sucursal:" [counter]="true"
+            maxlength="50" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input [(ngModel)]="departamento" label="Departamento:" [counter]="true"
+            maxlength="50" required></ion-input>
+        </ion-item>
+
+
+      </ion-list>
+    </ion-list>
+
+    <div class="btn">
+      <ion-button expand="block" style="max-width: 200px; margin: 0 auto;" 
+                  color="secondary" (click)="datosCambiados()" [routerLink]="['/empleados']">Actualizar</ion-button>
+  </div>
+
+</div>
+
+</ion-content>
