@@ -1,4 +1,15 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { ToastController, NavController } from '@ionic/angular';
+
+interface Opcion {
+  title: string;
+  url?: string;
+  icon: string;
+  action?: string;
+}
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -20,5 +31,35 @@ export class AppComponent {
     { title: 'Acerca De', url: '/acerca', icon: 'help' },
     { title: 'Cerrar Sesión', url: '/inicio-sesion', icon: 'log-out' },
   ];
-  constructor() {}
+  constructor(private router: Router, private afAuth: AngularFireAuth, 
+              private toastController: ToastController, private navCtrl: NavController) { }
+
+  navigate(opcion: Opcion) {
+    if(opcion.action && opcion.action === 'logout') {
+      this.logout();
+    } else {
+      this.router.navigate([opcion.url]);
+    }
+  }
+
+  async presentToast(message: string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000,
+      position: 'bottom'
+    });
+    toast.present();
+  }
+
+  async logout() {
+    try {
+      this.presentToast('Cerrando sesión...');
+      await this.afAuth.signOut();
+      this.navCtrl.navigateRoot('/inicio-sesion', { animationDirection: 'back' });
+    } catch(error) {
+      console.error('Error cerrando sesión', error);
+      this.presentToast('Error al cerrar la sesión.');
+    }
+  }
+
 }
