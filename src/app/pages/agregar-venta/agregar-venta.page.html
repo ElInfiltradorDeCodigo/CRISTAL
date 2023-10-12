@@ -52,11 +52,12 @@
 
         <ion-item>
           <ion-label>Cantidad</ion-label>
-          <ion-input formControlName="cantidad" (ionInput)="calcularTotal()"></ion-input>
+          <ion-input formControlName="cantidad" (ionChange)="verificarCantidad(i)" (ionInput)="calcularTotal()"></ion-input>
         </ion-item>
-        <div *ngIf="productoCtrl.get('cantidad')!.hasError('pattern')">
-          <p style="color: red;">Ingrese un número válido con hasta 2 decimales</p>
-        </div>        
+        <div *ngIf="productoCtrl.get('cantidad')!.hasError('pattern') || productoCtrl.get('cantidad')!.hasError('excedeExistencia')">
+          <p style="color: red;" *ngIf="productoCtrl.get('cantidad')!.hasError('pattern')">Ingrese un número válido con hasta 2 decimales</p>
+          <p style="color: red;" *ngIf="productoCtrl.get('cantidad')!.hasError('excedeExistencia')">La cantidad excede la existencia</p>
+        </div>                 
 
         <ion-item>
           <ion-label>Precio</ion-label>

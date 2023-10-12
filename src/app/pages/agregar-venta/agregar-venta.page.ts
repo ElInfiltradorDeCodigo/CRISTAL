@@ -98,6 +98,8 @@ export class AgregarVentaPage implements OnInit {
                 fecha: this.fechaFormateada
             });
 
+            const updatePromises = [];
+
             if (ventaData.mostrarCampos) {
                 const adeudosRef = this.db.list('/ADEUDOS');
                 await adeudosRef.push({
@@ -109,8 +111,14 @@ export class AgregarVentaPage implements OnInit {
                     fecha: this.fechaFormateada,
                     numero_pago: 0 
                 });
+
+              for (let producto of ventaData.productos) {
+                updatePromises.push(this.updateExistenciaProducto(producto));
+              }             
+
             }
 
+            await Promise.all(updatePromises);
             await this.router.navigate(['/ventas']);
             await this.presentToast('Venta registrada exitosamente!', 'success');
         } catch (error) {
@@ -128,6 +136,27 @@ export class AgregarVentaPage implements OnInit {
     }
 }
 
+private updateExistenciaProducto(producto: any): Promise<void> {
+  return new Promise<void>((resolve, reject) => {
+      const insumoRef = this.db.list('/INSUMOS', ref => ref.orderByChild('nombre').equalTo(producto.nombre));
+      const sub = insumoRef.snapshotChanges().subscribe(async (res) => {
+          try {
+              if (res.length > 0 && res[0].key !== null) { 
+                  const key = res[0].key;
+                  const payload: { val(): { existencia: number } } = res[0].payload as any;
+                  const existenciaActual = payload.val().existencia;
+                  
+                  await this.db.list('/INSUMOS').update(key, {existencia: existenciaActual - producto.cantidad});
+                  resolve();
+              }
+          } catch (error) {
+              reject(error);
+            } finally {
+              sub.unsubscribe();
+          }
+      });
+  });
+}
 
 async presentToast(message: string, color: string) {
   const toast = await this.toastController.create({
@@ -204,4 +233,20 @@ async presentToast(message: string, color: string) {
     this.calcularTotal(); 
   }
 
+  verificarCantidad(productoIndex: number) {
+    const nombreInsumoSeleccionado = this.productos.at(productoIndex).get('nombre')?.value;
+    const cantidadIngresada = this.productos.at(productoIndex).get('cantidad')?.value;
+    const insumoSeleccionado = this.insumos.find(insumo => insumo.nombre === nombreInsumoSeleccionado);
+  
+    if (insumoSeleccionado && cantidadIngresada > insumoSeleccionado.existencia) {
+      
+      this.productos.at(productoIndex).get('cantidad')?.setErrors({excedeExistencia: true});
+    } else {
+      
+      this.productos.at(productoIndex).get('cantidad')?.setErrors(null);
+    }
+  
+    this.calcularTotal();
+  } 
+  
 }
