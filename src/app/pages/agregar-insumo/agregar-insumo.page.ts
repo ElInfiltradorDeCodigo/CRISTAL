@@ -103,7 +103,8 @@ export class AgregarInsumoPage implements OnInit {
       async presentLoading(loadingMessage: string): Promise<HTMLIonLoadingElement> {
         const loading = await this.loadingController.create({
           message: loadingMessage,
-          spinner: 'crescent'
+          spinner: 'crescent',
+          backdropDismiss: false,
         });
         await loading.present();
         return loading;

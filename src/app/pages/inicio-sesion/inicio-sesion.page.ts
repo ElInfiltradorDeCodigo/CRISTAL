@@ -21,38 +21,42 @@ export class InicioSesionPage implements OnInit {
               public toastController: ToastController,public afAuth: AngularFireAuth,
               private alertController: AlertController,private loadingController: LoadingController) {}
 
-  async datosCambiados() {
-    try {
-      
-      const result = await this.afAuth.signInWithEmailAndPassword(this.email, this.password);
-
-      const loading = await this.loadingController.create({
-        message: 'Iniciando sesión...',
-        backdropDismiss: false,
-      });
-      await loading.present();
-      
-      if(result.user) {
-        this.router.navigate(['/inicio']);
-        loading.dismiss();
-        const toast = await this.toastController.create({
-          message: 'Bienvenido!',
-          duration: 2000,
-          cssClass: 'toast-custom'
-        });
-        toast.present();
-      }
-    } catch(err) {
-      
-      const alert = await this.alertController.create({
-        header: '¡Error!',
-        message: 'Contraseña o Correo Incorrecto',
-        buttons: ['Ok'],
-      });
-    
-      await alert.present();
-    }
-  }
+              async datosCambiados() {
+                let loading;
+                try {
+                  
+                  loading = await this.loadingController.create({
+                    message: 'Iniciando sesión...',
+                    backdropDismiss: false,
+                  });
+                  await loading.present();
+            
+                  const result = await this.afAuth.signInWithEmailAndPassword(this.email, this.password);
+              
+                  if(result.user) {
+                    await this.router.navigate(['/inicio']);
+                    const toast = await this.toastController.create({
+                      message: 'Bienvenido!',
+                      duration: 2000,
+                      cssClass: 'toast-custom'
+                    });
+                    await toast.present();
+                  }
+                } catch(err) {
+                  
+                  const alert = await this.alertController.create({
+                    header: '¡Error!',
+                    message: 'Contraseña o Correo Incorrecto',
+                    buttons: ['Ok'],
+                  });
+                  await alert.present();
+                } finally {
+                  
+                  if (loading) {
+                    await loading.dismiss();
+                  }
+                }
+              }              
 
   togglePasswordVisibility() {
     this.isPasswordVisible = !this.isPasswordVisible;

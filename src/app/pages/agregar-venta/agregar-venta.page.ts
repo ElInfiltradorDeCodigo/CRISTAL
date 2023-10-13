@@ -80,7 +80,7 @@ export class AgregarVentaPage implements OnInit {
 
         const loading = await this.loadingController.create({
             message: 'Registrando...',
-            backdropDismiss: false 
+            backdropDismiss: false,
         });
         await loading.present();
 

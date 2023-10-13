@@ -43,7 +43,7 @@ export class AgregarEmpleadoPage implements OnInit {
      async presentLoading(loadingMessage: string): Promise<HTMLIonLoadingElement> {
       const loading = await this.loadingController.create({
         message: loadingMessage,
-        spinner: 'crescent'
+        spinner: 'crescent',
       });
       await loading.present();
       return loading;

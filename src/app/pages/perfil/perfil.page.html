@@ -6,36 +6,43 @@
 </ion-header>
 
 <ion-content fullscreen>
-
   <h1>Mis Datos:</h1>
-
   <div class="perfil">
-      <ion-avatar style="margin: 0 auto; width: 100px; height: 100px;">
-          <img src="../../../assets/resources/perfil.jpeg" />
-       </ion-avatar>
+    <ion-avatar style="margin: 0 auto; width: 100px; height: 100px;">
+      <img [src]="(perfil | async)?.imageUrl || '../../../assets/resources/perfil.jpeg'" />
+    </ion-avatar>
   </div>
-
   <div class="listaPerfil">
-
     <ion-list lines="inset">
+
       <ion-item>
-        <ion-label>Nombre: Luis Angel</ion-label>
+        <ion-label>Nombre: {{(perfil | async)?.nombre}}</ion-label>
       </ion-item>
+
       <ion-item>
-        <ion-label>Apellido Paterno: Altamirano</ion-label>
+        <ion-label>Apellido Paterno: {{(perfil | async)?.apellido_p}}</ion-label>
       </ion-item>
+
       <ion-item>
-        <ion-label>Apellido Materno: Gonzalez</ion-label>
+        <ion-label>Apellido Materno: {{(perfil | async)?.apellido_m}}</ion-label>
       </ion-item>
+
       <ion-item>
-        <ion-label>Teléfono: 2711045217</ion-label>
+        <ion-label>Teléfono: {{(perfil | async)?.telefono}}</ion-label>
       </ion-item>
+
       <ion-item>
-        <ion-label>Correo Acceso: luis.altamirano@progomex.com</ion-label>
+        <ion-label>Correo Acceso: {{(perfil | async)?.correo}}</ion-label>
       </ion-item>
+
       <ion-item>
-        <ion-label>Departamento: Almácen MD</ion-label>
+        <ion-label>Sucursal: {{(perfil | async)?.sucursal}}</ion-label>
       </ion-item>
+
+      <ion-item>
+        <ion-label>Departamento: {{(perfil | async)?.departamento}}</ion-label>
+      </ion-item>
+
     </ion-list>
 
   </div>

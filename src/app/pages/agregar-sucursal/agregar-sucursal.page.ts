@@ -37,7 +37,8 @@ constructor(public toastController: ToastController,private fb: FormBuilder,
    async presentLoading(loadingMessage: string): Promise<HTMLIonLoadingElement> {
     const loading = await this.loadingController.create({
       message: loadingMessage,
-      spinner: 'crescent'
+      spinner: 'crescent',
+      backdropDismiss: false,
     });
     await loading.present();
     return loading;

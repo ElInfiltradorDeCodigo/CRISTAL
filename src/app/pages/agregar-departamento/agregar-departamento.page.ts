@@ -59,7 +59,8 @@ export class AgregarDepartamentoPage implements OnInit {
       const departamentosRef = this.db.list('DEPARTAMENTOS');
 
       const loading = await this.loadingCtrl.create({
-        message: 'Registrando departamento...'
+        message: 'Registrando departamento...',
+        backdropDismiss: false,
       });
       await loading.present();
       
