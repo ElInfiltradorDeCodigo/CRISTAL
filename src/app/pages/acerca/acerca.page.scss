@@ -22,6 +22,8 @@ ion-content {
   }
   
   ion-label {
-    padding-left: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   
