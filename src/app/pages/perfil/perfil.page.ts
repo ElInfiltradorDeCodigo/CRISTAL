@@ -3,6 +3,7 @@ import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-perfil',
@@ -13,11 +14,20 @@ export class PerfilPage implements OnInit {
 
   perfil!: Observable<any>;
 
-  constructor(private db: AngularFireDatabase, private auth: AngularFireAuth) { }
+  constructor(private db: AngularFireDatabase, private auth: AngularFireAuth, private router: Router) { }
 
   ngOnInit() {
     this.perfil = this.loadPerfilData();
   }
+
+  actualizarDatos() {
+    this.perfil.subscribe(data => {
+      this.router.navigate(['/cambiar-datos'], {
+        state: { perfil: data }
+      });
+    });
+  }
+  
 
   loadPerfilData(): Observable<any> {
     return this.auth.authState.pipe(
