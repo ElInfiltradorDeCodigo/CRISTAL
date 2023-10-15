@@ -12,7 +12,7 @@
     </ion-fab-button>
   </ion-fab>
 
-  <ion-card *ngFor="let sucursal of sucursales$ | async" (click)="presentActionSheet()">
+  <ion-card *ngFor="let sucursal of sucursales$ | async" (click)="presentActionSheet(sucursal)">
     <img [src]="sucursal.imageUrl"/>
     <ion-card-header>
       <ion-card-title>{{ sucursal.nombre_sucursal }}</ion-card-title>
