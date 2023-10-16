@@ -16,12 +16,11 @@
     <img [src]="sucursal.imageUrl"/>
     <ion-card-header>
       <ion-card-title>{{ sucursal.nombre_sucursal }}</ion-card-title>
-      <ion-card-subtitle>{{ sucursal.tipo_sucursal }}</ion-card-subtitle>
+      <ion-card-subtitle>Tipo Sucursal: {{ sucursal.tipo_sucursal }}</ion-card-subtitle>
+      <ion-card-subtitle>Localidad: {{ sucursal.localidad }}</ion-card-subtitle>
+      <ion-card-subtitle>Colonia: {{ sucursal.colonia }}</ion-card-subtitle>
+      <ion-card-subtitle>Codigo Postal: {{ sucursal.codigo_postal }}</ion-card-subtitle>
     </ion-card-header>
-  
-    <ion-card-content>
-      {{ sucursal.localidad }}
-    </ion-card-content>
   </ion-card>
 </ion-content>
 
