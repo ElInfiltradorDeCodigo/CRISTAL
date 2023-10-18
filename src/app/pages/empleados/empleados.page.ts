@@ -60,13 +60,10 @@ export class EmpleadosPage implements OnInit {
         },
         {
           text: 'Actualizar Información',
-          data: {
-            action: 'actualizarDatos',
-          },
           handler: () => {
-            this.actualizarEmpleado();
+              this.actualizarEmpleado(empleado.uid);
           },
-        },
+        },      
         {
           text: 'Cerrar',
           role: 'cancel',
@@ -108,10 +105,8 @@ export class EmpleadosPage implements OnInit {
 }
 
 
-  actualizarEmpleado(){
-
-    this.router.navigate(['/actualizar-empleado']);
-
+  actualizarEmpleado(empleadoUid: string) {
+    this.router.navigate(['/actualizar-empleado', empleadoUid]);
   }
 
   ngOnInit() {

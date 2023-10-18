@@ -134,6 +134,7 @@ export class AgregarEmpleadoPage implements OnInit {
                         apellido_m,
                         telefono,
                         correo,
+                        contrasena,
                         sucursal,
                         departamento,
                         imageUrl
