@@ -16,7 +16,6 @@ export class ActualizarEmpleadoPage implements OnInit {
       apellido_m: any;
       telefono: any;
       correo: any;
-      contrasena: any;
       sucursal: any;
       departamento: any;
 
@@ -50,8 +49,6 @@ loadEmpleadoData(empleadoUid: string): void {
               this.apellido_p = data.apellido_p;
               this.apellido_m = data.apellido_m;
               this.telefono = data.telefono;
-              this.correo = data.correo;
-              this.contrasena = data.contrasena;
               this.sucursal = data.sucursal;
               this.departamento = data.departamento;
           }
@@ -78,7 +75,6 @@ actualizarDatosEmpleado(empleadoUid: string) {
       apellido_p: this.apellido_p,
       apellido_m: this.apellido_m,
       telefono: this.telefono,
-      contrasena: this.contrasena,
       sucursal: this.sucursal,
       departamento: this.departamento
   }).then(() => {
