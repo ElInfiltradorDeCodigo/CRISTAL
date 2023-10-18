@@ -41,7 +41,7 @@ export class SucursalesPage implements OnInit {
             action: 'actualizarDatos',
           },
           handler: () => {
-            this.actualizarDatos();
+            this.actualizarDatos(sucursal);
           },
         },
         {
@@ -114,11 +114,11 @@ export class SucursalesPage implements OnInit {
 
   }
 
-  actualizarDatos(){
-
-    this.router.navigate(['/actualizar-sucursal']);
-
-  }
+  actualizarDatos(sucursal: any) {
+    this.router.navigate(['/actualizar-sucursal'], {
+        state: { sucursal: sucursal }
+    });
+}
 
   verDepartamentos(){
 
