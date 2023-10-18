@@ -121,6 +121,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/dedicatorias/dedicatorias.module').then( m => m.DedicatoriasPageModule)
   },
   {
+    path: 'perfil-empleado/:id',
+    loadChildren: () => import('./pages/perfil-empleado/perfil-empleado.module').then(m => m.PerfilEmpleadoPageModule)
+  },
+  {
     path: '',
     redirectTo: 'inicio-sesion',
     pathMatch: 'full'

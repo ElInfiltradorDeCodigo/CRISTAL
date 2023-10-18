@@ -16,110 +16,25 @@
 
   <ion-grid>
     <ion-row>
-      <ion-col>
-
-        <ion-card (click)="presentActionSheet()">
+      <ion-col *ngFor="let depto of departamentos">
+        <ion-card (click)="presentActionSheet(depto)">
           <ion-card-header>
-            <ion-card-title>Insumos Córdoba</ion-card-title>
-            <ion-card-subtitle>PROGOMEX Córdoba</ion-card-subtitle>
+            <ion-card-title>{{ depto.nombre }}</ion-card-title>
+            <ion-card-subtitle>{{ depto.sucursal }}</ion-card-subtitle>
           </ion-card-header>
           <ion-card-content>
             <ion-list>
-
               <ion-item>
-                <ion-label>Empleados Registrados: 8</ion-label>
+                <ion-label>Creado Por: {{ depto.autor }}</ion-label>
               </ion-item>
-
               <ion-item>
-                <ion-label>Creado Por: ADMIN2</ion-label>
+                <ion-label>Fecha Creación: {{ depto.fecha_creacion }}</ion-label>
               </ion-item>
-        
-              <ion-item>
-                <ion-label>Fecha Creación: 12/08/2023</ion-label>
-              </ion-item>
-      
             </ion-list>
           </ion-card-content>
         </ion-card>
-
-        <ion-card (click)="presentActionSheet()">
-          <ion-card-header>
-            <ion-card-title>Almacén Córdoba</ion-card-title>
-            <ion-card-subtitle>PROGOMEX Córdoba</ion-card-subtitle>
-          </ion-card-header>
-          <ion-card-content>
-            <ion-list>
-
-              <ion-item>
-                <ion-label>Empleados Registrados: 2</ion-label>
-              </ion-item>
-
-              <ion-item>
-                <ion-label>Creado Por: ADMIN2</ion-label>
-              </ion-item>
-        
-              <ion-item>
-                <ion-label>Fecha Creación: 12/08/2023</ion-label>
-              </ion-item>
-      
-            </ion-list>
-          </ion-card-content>
-        </ion-card>
-
-      </ion-col>
-
-      <ion-col>
-
-        <ion-card (click)="presentActionSheet()">
-          <ion-card-header>
-            <ion-card-title>Insumos Las Choapas</ion-card-title>
-            <ion-card-subtitle>PROGOMEX Las Choapas</ion-card-subtitle>
-          </ion-card-header>
-          <ion-card-content>
-            <ion-list>
-
-              <ion-item>
-                <ion-label>Empleados Registrados: 5</ion-label>
-              </ion-item>
-
-              <ion-item>
-                <ion-label>Creado Por: ADMIN</ion-label>
-              </ion-item>
-        
-              <ion-item>
-                <ion-label>Fecha Creación: 12/09/2023</ion-label>
-              </ion-item>
-      
-            </ion-list>
-          </ion-card-content>
-        </ion-card>
-
-        <ion-card (click)="presentActionSheet()">
-          <ion-card-header>
-            <ion-card-title>Insumos Villa Azueta</ion-card-title>
-            <ion-card-subtitle>PROGOMEX Villa Azueta</ion-card-subtitle>
-          </ion-card-header>
-          <ion-card-content>
-            <ion-list>
-
-              <ion-item>
-                <ion-label>Empleados Registrados: 1</ion-label>
-              </ion-item>
-
-              <ion-item>
-                <ion-label>Creado Por: ADMIN</ion-label>
-              </ion-item>
-        
-              <ion-item>
-                <ion-label>Fecha Creación: 12/09/2023</ion-label>
-              </ion-item>
-      
-            </ion-list>
-          </ion-card-content>
-        </ion-card>
-
       </ion-col>
     </ion-row>
-  </ion-grid>
+  </ion-grid>  
 
 </ion-content>

@@ -16,8 +16,8 @@ export class PerfilEmpleadoPage implements OnInit {
 
   ngOnInit() {
 
-    const empleadoUid = this.route.snapshot.paramMap.get('empleadoUid');
-    console.log('empleadoUid:', empleadoUid);
+    const empleadoUid = this.route.snapshot.paramMap.get('id');
+    console.log('id:', empleadoUid);
     if (empleadoUid) {
       this.loadEmpleado(empleadoUid);
   } else {

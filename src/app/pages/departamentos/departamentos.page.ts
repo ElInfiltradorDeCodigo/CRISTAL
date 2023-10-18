@@ -2,6 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { ActionSheetController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
+
+interface Departamento {
+  key?: string; 
+  nombre: string;
+  sucursal: string;
+  autor: string;
+  fecha_creacion: string;
+}
 
 @Component({
   selector: 'app-departamentos',
@@ -10,12 +19,12 @@ import { AlertController } from '@ionic/angular';
 })
 export class DepartamentosPage implements OnInit {
 
-  //fecha = new Date().getUTCDate();
+  departamentos: any[] = [];
 
   constructor(private actionSheetCtrl: ActionSheetController, private router: Router,
-    private alertController: AlertController) { }
+    private alertController: AlertController, private db: AngularFireDatabase) { }
 
-  async presentActionSheet() {
+  async presentActionSheet(depto: any) {
     const actionSheet = await this.actionSheetCtrl.create({
       header: 'Opciones De Departamento',
       backdropDismiss: false,
@@ -27,7 +36,7 @@ export class DepartamentosPage implements OnInit {
             action: 'delete',
           },
           handler: () => {
-            this.eliminacion();
+            this.eliminacion(depto);
         },
         },
         {
@@ -52,12 +61,23 @@ export class DepartamentosPage implements OnInit {
     await actionSheet.present();
   }
 
-    async eliminacion(){
-
+  async eliminacion(depto: any) {
     const alert = await this.alertController.create({
       header: '¡Advertencia!',
       message: '¿Realmente desea eliminar este departamento?',
-      buttons: ['Sí','No'],
+      buttons: [
+        {
+          text: 'Sí',
+          handler: () => {
+            this.db.list('DEPARTAMENTOS').remove(depto.key).then(() => {
+              console.log("Departamento eliminado con éxito");
+            }).catch(error => {
+              console.error("Error al eliminar el departamento: ", error);
+            });
+          }
+        },
+        'No'
+      ]
     });
 
     await alert.present();
@@ -71,6 +91,18 @@ export class DepartamentosPage implements OnInit {
   }
 
   ngOnInit() {
+    this.cargarDepartamentos();
   }
+
+  cargarDepartamentos() {
+    this.db.list('DEPARTAMENTOS').snapshotChanges().subscribe(items => {
+      this.departamentos = items.map(item => {
+        const data = item.payload.val() as Departamento;
+        const key = item.payload.key;
+        return { key, ...data }; 
+      });
+    });
+  }
+  
 
 }

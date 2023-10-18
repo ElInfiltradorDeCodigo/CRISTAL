@@ -3,6 +3,7 @@ import { ActionSheetController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 @Component({
   selector: 'app-empleados',
@@ -14,18 +15,27 @@ export class EmpleadosPage implements OnInit {
   empleados: any[] = [];
 
   constructor(private actionSheetCtrl: ActionSheetController, private router: Router,
-    private alertController: AlertController, private db: AngularFireDatabase) {
+    private alertController: AlertController, private db: AngularFireDatabase, private storage: AngularFireStorage) {
 
       this.loadEmpleados();
 
      }
 
      loadEmpleados(): void {
-      const empRef = this.db.list('EMPLEADOS').valueChanges();
-      empRef.subscribe(data => {
-        this.empleados = data;
+      const empRef = this.db.list('EMPLEADOS').snapshotChanges();
+      empRef.subscribe(snapshots => {
+        this.empleados = snapshots.map(snapshot => {
+          const values = snapshot.payload.val();
+          if (typeof values === 'object' && values !== null) {
+            return { uid: snapshot.key, ...values };
+          } else {
+    
+            return {};
+          }
+        });
       });
     }
+  
 
   async presentActionSheet(empleado: any) {
     const actionSheet = await this.actionSheetCtrl.create({
@@ -36,11 +46,11 @@ export class EmpleadosPage implements OnInit {
           text: 'Eliminar Empleado',
           role: 'destructive',
           data: {
-            action: 'delete',
+              action: 'delete',
           },
           handler: () => {
-            this.eliminacion();
-        },
+              this.eliminacion(empleado);
+          },
         },
         {
           text: 'Ver Perfil',
@@ -70,12 +80,19 @@ export class EmpleadosPage implements OnInit {
     await actionSheet.present();
   }
 
-    async eliminacion(){
-
+  async eliminacion(empleado: any) {
     const alert = await this.alertController.create({
-      header: '¡Advertencia!',
-      message: '¿Realmente desea eliminar este empleado?',
-      buttons: ['Sí','No'],
+        header: '¡Advertencia!',
+        message: '¿Realmente desea eliminar este empleado?',
+        buttons: [
+            {
+                text: 'Sí',
+                handler: () => {
+                    this.borrarEmpleado(empleado);
+                }
+            },
+            'No'
+        ],
     });
 
     await alert.present();
@@ -83,14 +100,13 @@ export class EmpleadosPage implements OnInit {
   }
 
   verPerfil(empleadoUid: string) {
-    this.router.navigate(['/perfil-empleado', empleadoUid]);
-
     if (empleadoUid) {
-      this.router.navigate(['/perfil-empleado', empleadoUid]);
-  } else {
-      console.error('empleadoUid is undefined or null');
-  }
+        this.router.navigate(['/perfil-empleado', empleadoUid]);
+    } else {
+        console.error('empleadoUid is undefined or null');
+    }
 }
+
 
   actualizarEmpleado(){
 
@@ -99,6 +115,23 @@ export class EmpleadosPage implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  borrarEmpleado(empleado: any) {
+    const imageRef = this.storage.refFromURL(empleado.imageUrl);
+    imageRef.delete().toPromise()
+    .then(() => {
+      this.db.list('EMPLEADOS').remove(empleado.uid)
+      .then(() => {
+          console.log('Empleado eliminado con éxito.');
+      })
+      .catch(error => {
+          console.error('Error al eliminar empleado:', error);
+      });
+    })
+    .catch(error => {
+        console.error('Error al eliminar imagen:', error);
+    });
   }
 
 }
