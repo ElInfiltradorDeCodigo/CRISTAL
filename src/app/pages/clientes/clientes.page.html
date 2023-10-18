@@ -18,7 +18,7 @@
         <h1>Productores Registrados</h1>
 
         <ion-list [inset]="true">
-          <ion-item *ngFor="let productor of productores | async" (click)="presentActionSheet()">
+          <ion-item *ngFor="let productor of productores | async" (click)="presentActionSheet(productor)">
             <ion-thumbnail slot="start">
               <img [src]="productor.imageUrl" style="width: 65px; height: 65px;" />
             </ion-thumbnail>
