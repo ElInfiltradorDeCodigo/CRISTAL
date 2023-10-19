@@ -129,6 +129,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/actualizar-empleado/actualizar-empleado.module').then(m => m.ActualizarEmpleadoPageModule)
   },
   {
+    path: 'actualizar-insumo/:id',
+    loadChildren: () => import('./pages/actualizar-insumo/actualizar-insumo.module').then(m => m.ActualizarInsumoPageModule)
+  },
+  {
     path: '',
     redirectTo: 'inicio-sesion',
     pathMatch: 'full'

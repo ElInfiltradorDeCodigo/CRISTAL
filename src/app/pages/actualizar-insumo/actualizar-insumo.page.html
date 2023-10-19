@@ -20,10 +20,10 @@
       <ion-list>
         <ion-item>
           <ion-img
-            src="../../../assets/img/add-image.png"
-            alt="The Wisconsin State Capitol building in Madison, WI at night"
+            [src]="imagenInsumo"
             style="height: 95px; width: 95px; margin: 0 auto;">
           </ion-img>
+          <ion-input type="file" (change)="cargarImagen($event)"></ion-input>
         </ion-item>
         <ion-item>
           <ion-input [(ngModel)]="nombre" label="Nombre:" [counter]="true"

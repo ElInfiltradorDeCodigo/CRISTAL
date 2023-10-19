@@ -19,7 +19,7 @@
   <ion-grid>
     <ion-row>
       <ion-col size="6" *ngFor="let insumo of insumos"> 
-        <ion-card (click)="presentActionSheet()" class="mis-tarjetas">
+        <ion-card (click)="presentActionSheet(insumo)" class="mis-tarjetas">
             <img [src]="insumo.imageUrl" style="width: 150px; height: 150px;" />
             <ion-card-header>
               <ion-card-title>{{ insumo.nombre }}</ion-card-title>
