@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-detalle-adeudo',
@@ -10,8 +11,16 @@ import { Router } from '@angular/router';
 })
 export class DetalleAdeudoPage implements OnInit {
 
+  adeudo: any;
+
   constructor(public toastController: ToastController, private alertController: AlertController,
-              private router: Router) { }
+    private router: Router, private route: ActivatedRoute) {
+      const adeudoParam = this.route.snapshot.paramMap.get('adeudo');
+      if (adeudoParam) {
+      this.adeudo = JSON.parse(adeudoParam);
+      }
+  }
+
 
   async datosCambiados() {
     const toast = await this.toastController.create({
@@ -32,7 +41,7 @@ export class DetalleAdeudoPage implements OnInit {
           text: 'No',
           role: 'cancel',
           handler: () => {
-            // El usuario ha seleccionado "No", realiza las acciones correspondientes aquí
+           
           }
         },
         {
@@ -44,7 +53,7 @@ export class DetalleAdeudoPage implements OnInit {
           }
         }
       ],
-      backdropDismiss: false, // Evita que se cierre al tocar fuera de la ventana
+      backdropDismiss: false,
     });
   
     await alert.present();

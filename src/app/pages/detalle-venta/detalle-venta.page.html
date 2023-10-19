@@ -32,7 +32,7 @@
     <h3 style="text-align: center; margin-bottom: 20px;">Insumos Vendidos</h3>
 
 <ion-list *ngFor="let producto of venta?.productos">
-    <ion-item button (click)="toggleDetails(producto)">
+    <ion-item button (click)="toggleDetails(producto)" detail="true">
         {{ producto.nombre }}
     </ion-item>
     <div *ngIf="producto.showDetails">

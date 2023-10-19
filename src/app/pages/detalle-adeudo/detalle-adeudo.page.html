@@ -15,70 +15,35 @@
 
   <div class="listaPerfil">
 
-    <h3 style="align-items: center; text-align: center;">Detalle Venta</h3>
-
     <ion-list lines="inset">
       <ion-item>
-        <ion-label>Fecha De La Venta: 27/09/2023</ion-label>
+        <ion-label>Fecha De La Venta: {{ adeudo.fecha }}</ion-label>
       </ion-item>
       <ion-item>
-        <ion-label>Empleado: Luis Angel Altamirano Gonzalez</ion-label>
+        <ion-label>Cliente: {{ adeudo.nombre_cliente.nombre }} {{ adeudo.nombre_cliente.apellido_p }} {{ adeudo.nombre_cliente.apellido_m }}</ion-label>
       </ion-item>
       <ion-item>
-        <ion-label>Cliente: Manuel Gonzalo Ramirez</ion-label>
+        <ion-label>Teléfono Cliente: {{ adeudo.telefono_cliente }}</ion-label>
       </ion-item>
       <ion-item>
-        <ion-label>Monto Total: $4567.87</ion-label>
+        <ion-label>Pago Por Mes: {{ adeudo.meses }}</ion-label>
       </ion-item>
       <ion-item>
-        <ion-label>Credito: Si</ion-label>
+        <ion-label>Observaciones: {{ adeudo.observaciones }}</ion-label>
       </ion-item>
-      
-      <h3 style="align-items: center; text-align: center;">Insumos Vendidos</h3>
-
       <ion-item>
-        <ion-label>Cuchilla R-2</ion-label>
-        <ion-label>Cantidad: 24</ion-label>
-        <ion-label>Precio: 150.00</ion-label>
+        <ion-label>Número de Pago: {{ adeudo.numero_pago }}</ion-label>
       </ion-item>
-
       <ion-item>
-        <ion-label>Cuchilla R-1</ion-label>
-        <ion-label>Cantidad: 12</ion-label>
-        <ion-label>Precio: 120.00</ion-label>
+        <ion-label>Total a Diferir: {{ adeudo.totalDiferir }}</ion-label>
       </ion-item>
-
-      <ion-item>
-        <ion-label>Alambre Cal. 12</ion-label>
-        <ion-label>Cantidad: 100</ion-label>
-        <ion-label>Precio: 47.00</ion-label>
-      </ion-item>
-
-      <h3 style="align-items: center; text-align: center;">Pagos y Meses</h3>
-
-      <ion-item>
-        <ion-label>Meses Diferidos: 3</ion-label>
-      </ion-item>
-
-      <ion-item>
-        <ion-label>Pago Por Mes: $1522.62</ion-label>
-      </ion-item>
-
-      <ion-item>
-        <ion-label>Pagos Realizado: 2</ion-label>
-      </ion-item>
-
-      <ion-item>
-        <ion-label>Adeudos Anteriores: $0.0</ion-label>
-      </ion-item>
-
     </ion-list>
 
     <div class="btn">
       <ion-button expand="block" style="max-width: 200px; margin: 0 auto;" 
-                  color="secondary" (click)="pagoRealizado()" >Marcar Pago</ion-button>
+                  color="secondary" (click)="pagoRealizado()">Marcar Pago</ion-button>
     </div>
-
   </div>
-
 </ion-content>
+
+

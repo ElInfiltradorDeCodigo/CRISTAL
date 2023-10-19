@@ -11,7 +11,7 @@
 <ion-content fullscreen="true">
   <ion-grid>
     <ion-row>
-      <ion-col *ngFor="let adeudo of adeudos | async" (click)="presentActionSheet()">
+      <ion-col *ngFor="let adeudo of adeudos | async" (click)="presentActionSheet(adeudo.key, adeudo)">
         <ion-card>
           <ion-card-header>
             <ion-card-title>Fecha Adeudo Generado: {{ adeudo.fecha }}</ion-card-title>

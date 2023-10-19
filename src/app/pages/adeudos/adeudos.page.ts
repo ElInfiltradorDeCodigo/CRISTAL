@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { Observable } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-adeudos',
@@ -12,12 +14,14 @@ import { Observable } from 'rxjs';
 })
 export class AdeudosPage implements OnInit {
 
-  adeudos!: Observable<any[]>;
+  adeudosData = new BehaviorSubject<any[]>([]);
+  subscription!: Subscription;
+  adeudos = this.adeudosData.asObservable();
 
   constructor(private actionSheetCtrl: ActionSheetController, private router: Router,
-    private alertController: AlertController, private db: AngularFireDatabase) { }
+    private alertController: AlertController, private db: AngularFireDatabase,private toastController: ToastController) { }
 
-  async presentActionSheet() {
+    async presentActionSheet(key: string, adeudo: any) {
     const actionSheet = await this.actionSheetCtrl.create({
       header: 'Opciones De Adeudo',
       backdropDismiss: false,
@@ -29,7 +33,7 @@ export class AdeudosPage implements OnInit {
             action: 'delete',
           },
           handler: () => {
-            this.eliminacion();
+            this.eliminacion(key);
         },
         },
         {
@@ -38,7 +42,7 @@ export class AdeudosPage implements OnInit {
             action: 'actualizarDatos',
           },
           handler: () => {
-            this.verEmpleados();
+            this.verEmpleados(adeudo);
           },
         },
         {
@@ -63,24 +67,44 @@ export class AdeudosPage implements OnInit {
     await actionSheet.present();
   }
 
-    async eliminacion(){
+  async presentToast(message: string, color: string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000,
+      color: color,
+      position: 'bottom'
+    });
+    toast.present();
+  }  
 
+  async eliminacion(key: string) {
     const alert = await this.alertController.create({
       header: '¡Advertencia!',
       message: '¿Realmente desea eliminar este adeudo?',
-      buttons: ['Sí','No'],
+      buttons: [
+        {
+          text: 'Sí',
+          handler: () => {
+            this.db.list('ADEUDOS').remove(key).then(() => {
+              
+              this.presentToast('Adeudo eliminado con éxito', 'success');
+            }).catch((error) => {
+              
+              this.presentToast('Error al eliminar el adeudo', 'danger');
+            });
+          }
+        },
+        'No'
+      ],
       backdropDismiss: false,
     });
-
+  
     await alert.present();
+  }  
 
-  }
-
-  verEmpleados(){
-
-    this.router.navigate(['/detalle-adeudo']);
-
-  }
+  verEmpleados(adeudo: any){
+    this.router.navigate(['/detalle-adeudo', { adeudo: JSON.stringify(adeudo) }]);
+}  
 
   actualizarVenta(){
 
@@ -89,7 +113,15 @@ export class AdeudosPage implements OnInit {
   }
 
   ngOnInit() {
-    this.adeudos = this.db.list('ADEUDOS').valueChanges();
-  }
+    this.subscription = this.db.list('ADEUDOS').snapshotChanges().subscribe(actions => {
+      const updatedAdeudos = actions.map(action => {
+        const val = action.payload.val();
+        return (typeof val === 'object' && val !== null) 
+          ? { key: action.key, ...val } 
+          : { key: action.key };
+      });
+      this.adeudosData.next(updatedAdeudos);
+    });
+  }   
 
 }
