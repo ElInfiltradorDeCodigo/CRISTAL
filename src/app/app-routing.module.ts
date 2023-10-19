@@ -133,6 +133,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/actualizar-insumo/actualizar-insumo.module').then(m => m.ActualizarInsumoPageModule)
   },
   {
+    path: 'detalle-venta/:ventaId',
+    loadChildren: () => import('./pages/detalle-venta/detalle-venta.module').then(m => m.DetalleVentaPageModule)
+  },
+  {
     path: '',
     redirectTo: 'inicio-sesion',
     pathMatch: 'full'

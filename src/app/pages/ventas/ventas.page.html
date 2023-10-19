@@ -18,7 +18,7 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-        <ion-card *ngFor="let venta of ventas | async" (click)="presentActionSheet()">
+        <ion-card *ngFor="let venta of ventas | async" (click)="presentActionSheet(venta.key)">
           <ion-card-header>
             <ion-card-title>Fecha Venta: {{venta.fecha}}</ion-card-title>
             <ion-card-subtitle>Total Vendido: {{venta.total}}</ion-card-subtitle>

@@ -17,43 +17,36 @@
 
     <ion-list lines="inset">
       <ion-item>
-        <ion-label>Fecha Venta: 27/09/2023</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label>Empleado: Luis Angel Altamirano Gonzalez</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label>Cliente: Manuel Gonzalo Ramirez</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label>Monto Total: $4567.87</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label>Credito: No</ion-label>
-      </ion-item>
+        <ion-label>Fecha Venta: {{ venta?.fecha }}</ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-label>Empleado: {{ venta?.empleado }}</ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-label>Cliente: {{ getNombreCompleto(venta?.nombre_cliente) }}</ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-label>Monto Total: ${{ venta?.total }}</ion-label>
+    </ion-item>
       
-      <h3 style="align-items: center; text-align: center;">Insumos Vendidos</h3>
+    <h3 style="text-align: center; margin-bottom: 20px;">Insumos Vendidos</h3>
 
-      <ion-item>
-        <ion-label>Cuchilla R-2</ion-label>
-        <ion-label>Cantidad: 24</ion-label>
-        <ion-label>Precio: 150.00</ion-label>
-      </ion-item>
+<ion-list *ngFor="let producto of venta?.productos">
+    <ion-item button (click)="toggleDetails(producto)">
+        {{ producto.nombre }}
+    </ion-item>
+    <div *ngIf="producto.showDetails">
+        <ion-item>
+            <ion-label>Cantidad: {{ producto.cantidad }}</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Precio: {{ producto.precio }}</ion-label>
+        </ion-item>
+    </div>
+</ion-list>
 
-      <ion-item>
-        <ion-label>Cuchilla R-1</ion-label>
-        <ion-label>Cantidad: 12</ion-label>
-        <ion-label>Precio: 120.00</ion-label>
-      </ion-item>
+</ion-list>
 
-      <ion-item>
-        <ion-label>Alambre Cal. 12</ion-label>
-        <ion-label>Cantidad: 100</ion-label>
-        <ion-label>Precio: 47.00</ion-label>
-      </ion-item>
-
-    </ion-list>
-
-  </div>
+</div>
 
 </ion-content>
