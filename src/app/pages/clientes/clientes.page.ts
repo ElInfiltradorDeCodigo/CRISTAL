@@ -101,16 +101,13 @@ export class ClientesPage implements OnInit {
 }
 
   verPerfil(){
-
-    this.router.navigate(['/perfil-productor']);
-
+    this.router.navigate(['/perfil-productor', { productor: JSON.stringify(this.selectedProductor) }]);
   }
+
 
   actualizarEmpleado(){
-
-    this.router.navigate(['/actualizar-productor']);
-
-  }
+    this.router.navigate(['/actualizar-productor', { productor: JSON.stringify(this.selectedProductor) }]);
+  }  
 
 
   ngOnInit() {

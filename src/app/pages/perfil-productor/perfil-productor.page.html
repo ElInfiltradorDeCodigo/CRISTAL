@@ -16,33 +16,30 @@
 
   <div class="perfil">
     <ion-avatar style="margin: 0 auto; width: 100px; height: 100px;">
-        <img src="https://tierrafertil.com.mx/wp-content/uploads/2014/07/237_01.jpg" />
-     </ion-avatar>
+      <img [src]="productor?.imageUrl" />
+    </ion-avatar>
 </div>
 
 <div class="listaPerfil">
 
   <ion-list lines="inset">
     <ion-item>
-      <ion-label>Nombre: Manuel</ion-label>
+      <ion-label>Nombre: {{ productor?.nombre }}</ion-label>
     </ion-item>
     <ion-item>
-      <ion-label>Apellido Paterno: Gonzalo</ion-label>
+      <ion-label>Apellido Paterno: {{ productor?.apellido_p }}</ion-label>
     </ion-item>
     <ion-item>
-      <ion-label>Apellido Materno: Ramirez</ion-label>
+      <ion-label>Apellido Materno: {{ productor?.apellido_m }}</ion-label>
     </ion-item>
     <ion-item>
-      <ion-label>Teléfono: 2722348756</ion-label>
+      <ion-label>Teléfono: {{ productor?.telefono}}</ion-label>
     </ion-item>
     <ion-item>
-      <ion-label>Localidad: Tuxtepec</ion-label>
+      <ion-label>Localidad: {{ productor?.localidad }}</ion-label>
     </ion-item>
     <ion-item>
-      <ion-label>Estado: Oaxaca</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>Fecha Registro: 12/08/2023</ion-label>
+      <ion-label>Estado: {{ productor?.estado }}</ion-label>
     </ion-item>
   </ion-list>
 

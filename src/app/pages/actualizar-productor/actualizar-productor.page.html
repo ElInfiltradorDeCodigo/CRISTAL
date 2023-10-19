@@ -18,13 +18,7 @@
 
     <ion-list>
       <ion-list>
-        <ion-item>
-          <ion-img
-            src="../../../assets/img/add-image.png"
-            alt="The Wisconsin State Capitol building in Madison, WI at night"
-            style="height: 95px; width: 95px; margin: 0 auto;">
-          </ion-img>
-        </ion-item>
+      
         <ion-item>
           <ion-input [(ngModel)]="nombre" label="Nombre:" [counter]="true"
             maxlength="45" required></ion-input>
@@ -47,12 +41,12 @@
         </ion-item>
 
         <ion-item>
-          <ion-input [(ngModel)]="correo" label="Localidad:" [counter]="true"
+          <ion-input [(ngModel)]="localidad" label="Localidad:" [counter]="true"
             maxlength="50" required></ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-input [(ngModel)]="contrasena" label="Estado:" [counter]="true"
+          <ion-input [(ngModel)]="estado" label="Estado:" [counter]="true"
             maxlength="50" required></ion-input>
         </ion-item>
 
@@ -61,8 +55,8 @@
 
     <div class="btn">
       <ion-button expand="block" style="max-width: 200px; margin: 0 auto;" 
-                  color="secondary" (click)="datosCambiados()" [routerLink]="['/clientes']">Actualizar</ion-button>
-  </div>
+      color="secondary" (click)="actualizarProductorEnFirebase()">Actualizar</ion-button>
+    </div>
 
 </div>
 
