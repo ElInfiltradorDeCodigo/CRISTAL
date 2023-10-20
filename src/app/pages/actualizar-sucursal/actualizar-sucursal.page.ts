@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastController } from '@ionic/angular';
+import { ToastController, LoadingController } from '@ionic/angular'; // 1. Importar LoadingController
 import { Router } from '@angular/router';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 
@@ -17,13 +17,24 @@ localidad: any;
 
 sucursalKey!: string;
 
-
-
   constructor(public toastController: ToastController, private router: Router,
-              private db: AngularFireDatabase) { }
+              private db: AngularFireDatabase,
+              private loadingController: LoadingController) { }  // 2. Inyectar LoadingController en el constructor
+
+// 3. Método para mostrar el ProgressDialog
+async presentLoading(message: string) {
+  const loading = await this.loadingController.create({
+    message: message,
+    spinner: 'crescent',
+    backdropDismiss: false
+  });
+  await loading.present();
+  return loading;
+}
 
 async datosCambiados() {
-  
+  const loading = await this.presentLoading('Actualizando...'); 
+
   this.db.object(`SUCURSALES/${this.sucursalKey}`).update({
     nombre_sucursal: this.nombre_sucursal,
     tipo_sucursal: this.tipo_sucursal,
@@ -32,6 +43,7 @@ async datosCambiados() {
     localidad: this.localidad
   }).then(async () => {
     
+    loading.dismiss();  
     const toast = await this.toastController.create({
       message: 'Los Datos Se Actualizaron Correctamente!',
       duration: 2000, 
@@ -43,6 +55,7 @@ async datosCambiados() {
 
     }).catch(async error => {
       
+      loading.dismiss(); 
       const toast = await this.toastController.create({
         message: 'Error al actualizar. Por favor, intenta de nuevo.',
         duration: 2000,
@@ -58,7 +71,7 @@ async datosCambiados() {
       const sucursal = navigation.extras.state['sucursal'];
       this.setFormValues(sucursal);
     }
-}
+  }
 
   setFormValues(sucursal: any) {
     if(sucursal) {
@@ -72,3 +85,4 @@ async datosCambiados() {
   }
 
 }
+

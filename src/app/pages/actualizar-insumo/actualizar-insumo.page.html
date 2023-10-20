@@ -19,12 +19,9 @@
     <ion-list>
       <ion-list>
         <ion-item>
-          <ion-img
-            [src]="imagenInsumo"
-            style="height: 95px; width: 95px; margin: 0 auto;">
-          </ion-img>
           <ion-input type="file" (change)="cargarImagen($event)"></ion-input>
         </ion-item>
+        
         <ion-item>
           <ion-input [(ngModel)]="nombre" label="Nombre:" [counter]="true"
             maxlength="50" required></ion-input>

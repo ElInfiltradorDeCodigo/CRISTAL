@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { finalize } from 'rxjs/operators';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-actualizar-insumo',
@@ -24,73 +25,67 @@ export class ActualizarInsumoPage implements OnInit {
       imagenSeleccionada: any;
 
   constructor(public toastController: ToastController, private route: ActivatedRoute,
-              private db: AngularFireDatabase, private storage: AngularFireStorage) { }
+              private db: AngularFireDatabase, private storage: AngularFireStorage,
+              private loadingController: LoadingController) { }
 
   async datosCambiados() {
+    const loading = await this.loadingController.create({
+      message: 'Actualizando insumo...',
+    });
+    await loading.present();
+  
     if (this.imagenSeleccionada) {
-      
       const randomId = Math.random().toString(36).substring(2);
       const filepath = `insumoImages/${randomId}`;
       const fileRef = this.storage.ref(filepath);
       const task = this.storage.upload(filepath, this.imagenSeleccionada);
       
       task.snapshotChanges().pipe(
-        finalize(() => {
+        finalize(async () => {
           fileRef.getDownloadURL().subscribe(async (url) => {
             this.imagenInsumo = url;
-            
-            this.db.object(`INSUMOS/${this.route.snapshot.params['id']}`).update({
-              nombre: this.nombre,
-              clave: this.apellido_p,
-              unidad: this.apellido_m,
-              precio: this.telefono,
-              existencia: this.existencia,
-              imageUrl: this.imagenInsumo
-            }).then(async () => {
-              const toast = await this.toastController.create({
-                message: 'Insumo Actualizado Exitosamente!',
-                duration: 2000,
-                cssClass: 'toast-custom'
-              });
-              toast.present();
-            }).catch(async error => {
-              const toast = await this.toastController.create({
-                message: 'Error al actualizar el insumo',
-                duration: 2000,
-                cssClass: 'toast-custom-danger'
-              });
-              toast.present();
-            });
+            await this.updateInsumoDatabase();
+            loading.dismiss();
           });
         })
       ).subscribe();
     } else {
-      
-      this.db.object(`INSUMOS/${this.route.snapshot.params['id']}`).update({
-        nombre: this.nombre,
-        clave: this.apellido_p,
-        unidad: this.apellido_m,
-        precio: this.telefono,
-        existencia: this.existencia
-      }).then(async () => {
-        const toast = await this.toastController.create({
-          message: 'Insumo Actualizado Exitosamente!',
-          duration: 2000,
-          cssClass: 'toast-custom'
-        });
-        toast.present();
-      }).catch(async error => {
-        const toast = await this.toastController.create({
-          message: 'Error al actualizar el insumo',
-          duration: 2000,
-          cssClass: 'toast-custom-danger'
-        });
-        toast.present();
-      });
+      await this.updateInsumoDatabase();
+      loading.dismiss();
     }
   }
+  
+  async updateInsumoDatabase() {
+    let updateObject: any = {
+      nombre: this.nombre,
+      clave: this.apellido_p,
+      unidad: this.apellido_m,
+      precio: this.telefono,
+      existencia: this.existencia
+    };
+  
+    if (this.imagenInsumo) {
+      updateObject.imageUrl = this.imagenInsumo;
+    }
+  
+    try {
+      await this.db.object(`INSUMOS/${this.route.snapshot.params['id']}`).update(updateObject);
+      const toast = await this.toastController.create({
+        message: 'Insumo Actualizado Exitosamente!',
+        duration: 2000,
+        cssClass: 'toast-custom'
+      });
+      toast.present();
+    } catch (error) {
+      const toast = await this.toastController.create({
+        message: 'Error al actualizar el insumo',
+        duration: 2000,
+        cssClass: 'toast-custom-danger'
+      });
+      toast.present();
+    }
+  }              
               
-
   ngOnInit() {
     this.route.params.subscribe(params => {
       const insumoKey = params['id'];

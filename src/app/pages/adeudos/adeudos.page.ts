@@ -51,7 +51,7 @@ export class AdeudosPage implements OnInit {
             action: 'actualizarDatos',
           },
           handler: () => {
-            this.actualizarVenta();
+            this.actualizarVenta(adeudo, key);
           },
         },
         {
@@ -106,11 +106,9 @@ export class AdeudosPage implements OnInit {
     this.router.navigate(['/detalle-adeudo', { adeudo: JSON.stringify(adeudo) }]);
 }  
 
-  actualizarVenta(){
-
-    this.router.navigate(['/actualizar-adeudo']);
-
-  }
+actualizarVenta(adeudo: any, key: string){
+  this.router.navigate(['/actualizar-adeudo', { adeudo: JSON.stringify(adeudo), adeudoId: key }]);
+}
 
   ngOnInit() {
     this.subscription = this.db.list('ADEUDOS').snapshotChanges().subscribe(actions => {

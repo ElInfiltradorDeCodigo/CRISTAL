@@ -3,6 +3,7 @@ import { ToastController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { Router } from '@angular/router'; 
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-actualizar-empleado',
@@ -18,9 +19,12 @@ export class ActualizarEmpleadoPage implements OnInit {
       correo: any;
       sucursal: any;
       departamento: any;
+      public sucursales: any[] = [];
+      public departamentos: any[] = [];
+      public departamentosFiltrados: any[] = [];
 
   constructor(public toastController: ToastController,private route: ActivatedRoute,
-              private db: AngularFireDatabase, private router: Router) { }
+              private db: AngularFireDatabase, private router: Router, private loadingController: LoadingController) { }
 
   async datosCambiados() {
     const toast = await this.toastController.create({
@@ -38,6 +42,9 @@ export class ActualizarEmpleadoPage implements OnInit {
     } else {
         console.error('empleadoUid is undefined or null');
     }
+
+    this.cargarSucursales();
+    this.cargarDepartamentos();
 }
 
 loadEmpleadoData(empleadoUid: string): void {
@@ -69,7 +76,12 @@ guardarCambios() {
   }
 }
 
-actualizarDatosEmpleado(empleadoUid: string) {
+async actualizarDatosEmpleado(empleadoUid: string) {
+  const loading = await this.loadingController.create({
+    message: 'Actualizando datos...',
+  });
+  await loading.present();
+  
   this.db.object(`EMPLEADOS/${empleadoUid}`).update({
       nombre: this.nombre,
       apellido_p: this.apellido_p,
@@ -78,11 +90,30 @@ actualizarDatosEmpleado(empleadoUid: string) {
       sucursal: this.sucursal,
       departamento: this.departamento
   }).then(() => {
-      this.datosCambiados(); 
+      this.datosCambiados();
+      loading.dismiss();
   }).catch(error => {
       console.error('Error al actualizar datos del empleado:', error);
+      loading.dismiss();
   });
 }
 
+cargarSucursales() {
+  this.db.list('SUCURSALES').valueChanges().subscribe(data => {
+    this.sucursales = data;
+  });
+}
+
+cargarDepartamentos() {
+  this.db.list('DEPARTAMENTOS').valueChanges().subscribe(data => {
+    this.departamentos = data;
+    this.filtrarDepartamentos(); 
+  });
+}
+
+filtrarDepartamentos() {
+  
+  this.departamentosFiltrados = this.departamentos.filter(departamento => departamento.sucursal === this.sucursal);
+}
 
 }

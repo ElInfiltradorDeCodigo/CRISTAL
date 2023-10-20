@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastController } from '@ionic/angular';
+import { ToastController, LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 @Component({
   selector: 'app-cambiar-datos',
@@ -18,49 +19,83 @@ export class CambiarDatosPage implements OnInit {
   correo: string | undefined;
   sucursal: string | undefined;
   departamento: string | undefined;
+  selectedFile: any = null;
 
   constructor(public toastController: ToastController, private router: Router, 
-              private db: AngularFireDatabase, private auth: AngularFireAuth) { }
+              private db: AngularFireDatabase, private auth: AngularFireAuth, private storage: AngularFireStorage,
+              private loadingController: LoadingController) { }
 
-  async datosCambiados() {
-    try {
-      const user = await this.auth.currentUser;
-      const userUid = user?.uid;
+    async datosCambiados() {
+      let loading: HTMLIonLoadingElement | undefined = undefined;
+      try {
+
+          loading = await this.loadingController.create({
+            message: 'Actualizando datos...',
+            backdropDismiss: false, 
+            });
+            await loading.present();
+
+          const user = await this.auth.currentUser;
+          const userUid = user?.uid;
   
-      if (userUid) {
-        await this.db.object(`EMPLEADOS/${userUid}`).update({
-          nombre: this.nombre,
-          apellido_p: this.apellido_p,
-          apellido_m: this.apellido_m,
-          telefono: this.telefono
-          
-        });
-        
-        const toast = await this.toastController.create({
-          message: 'Datos Actualizados Correctamente!',
-          duration: 2000, 
-          cssClass: 'toast-custom'
-        });
-        toast.present();
-        this.router.navigateByUrl('/perfil');
-      } else {
-        const toast = await this.toastController.create({
-          message: 'No hay usuario autenticado',
-          duration: 2000, 
-          cssClass: 'toast-error'
-        });
-        toast.present();
+          if (userUid) {
+              let imageUrl: string | undefined = undefined;
+              if (this.selectedFile) {
+                  const filePath = `userImages/${userUid}`; 
+                  const fileRef = this.storage.ref(filePath);
+                  const task = this.storage.upload(filePath, this.selectedFile);
+  
+                  await task.snapshotChanges().toPromise();
+                  imageUrl = await fileRef.getDownloadURL().toPromise();
+              }
+  
+              await this.db.object(`EMPLEADOS/${userUid}`).update({
+                  nombre: this.nombre,
+                  apellido_p: this.apellido_p,
+                  apellido_m: this.apellido_m,
+                  telefono: this.telefono,
+                  ...(imageUrl && { imageUrl: imageUrl })
+              });
+  
+              const toast = await this.toastController.create({
+                  message: 'Datos Actualizados Correctamente!',
+                  duration: 2000,
+                  cssClass: 'toast-custom'
+              });
+              toast.present();
+              loading.dismiss(); 
+              this.router.navigateByUrl('/perfil');
+          } else {
+              const toast = await this.toastController.create({
+                  message: 'No hay usuario autenticado',
+                  duration: 2000,
+                  cssClass: 'toast-error'
+              });
+              toast.present();
+              loading.dismiss(); 
+          }
+      } catch (error) {
+
+        if (loading) {
+          loading.dismiss(); 
       }
-    } catch (error) {
-      const toast = await this.toastController.create({
-        message: `Error al actualizar: ${error}`,
-        duration: 2000, 
-        cssClass: 'toast-error'
-      });
-      toast.present();
-    }
+          const toast = await this.toastController.create({
+              message: `Error al actualizar: ${error}`,
+              duration: 2000,
+              cssClass: 'toast-error'
+          });
+          toast.present();
+      }
   }
-              
+            
+            
+  onFileChanged(event: Event) {
+    const input = event.target as HTMLInputElement;
+
+    if (input.files && input.files.length) {
+        this.selectedFile = input.files[0];
+    }
+}          
 
   ngOnInit() {
     const navigation = this.router.getCurrentNavigation();

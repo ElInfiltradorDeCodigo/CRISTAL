@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-actualizar-productor',
@@ -19,7 +20,7 @@ export class ActualizarProductorPage implements OnInit {
       productorKey: any;
 
   constructor(public toastController: ToastController, private route: ActivatedRoute,
-    private db: AngularFireDatabase, private router: Router) {
+    private db: AngularFireDatabase, private router: Router, private loadingController: LoadingController ) {
 
     if (this.route.snapshot.paramMap.get('productor')) {
       const productorData = JSON.parse(this.route.snapshot.paramMap.get('productor')!);
@@ -45,6 +46,11 @@ export class ActualizarProductorPage implements OnInit {
   }
 
   async actualizarProductorEnFirebase() {
+    const loading = await this.loadingController.create({
+      message: 'Actualizando productor...',
+    });
+    await loading.present();
+    
     try {
       await this.db.object(`PRODUCTORES/${this.productorKey}`).update({
         nombre: this.nombre,
@@ -55,12 +61,15 @@ export class ActualizarProductorPage implements OnInit {
         estado: this.estado
       });
       this.datosCambiados('Los Datos Se Actualizaron Correctamente!');
+      loading.dismiss();
       this.router.navigate(['/clientes']);
     } catch (error) {
       console.error("Error al actualizar el productor: ", error);
+      loading.dismiss();
       this.datosCambiados('Error al actualizar el productor.');
     }
   }
+  
 
   ngOnInit() {
   }

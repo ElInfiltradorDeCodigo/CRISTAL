@@ -19,6 +19,11 @@
     <ion-list>
 
       <ion-item>
+        <ion-label position="stacked">Imagen:</ion-label>
+        <ion-input type="file" (change)="onFileChanged($event)"></ion-input>
+      </ion-item>      
+
+      <ion-item>
         <ion-label position="stacked">Nombre:</ion-label>
         <ion-input [(ngModel)]="nombre" [counter]="true" 
                    maxlength="45" required></ion-input>

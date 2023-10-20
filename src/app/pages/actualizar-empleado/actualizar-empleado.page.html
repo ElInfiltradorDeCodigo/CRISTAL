@@ -41,13 +41,21 @@
         </ion-item>
 
         <ion-item>
-          <ion-input [(ngModel)]="sucursal" label="Sucursal:" [counter]="true"
-            maxlength="50" required></ion-input>
+          <ion-label>Sucursal:</ion-label>
+          <ion-select [(ngModel)]="sucursal" (ionChange)="filtrarDepartamentos()" placeholder="Seleccionar Sucursal">
+            <ion-select-option *ngFor="let sucursal of sucursales" [value]="sucursal.nombre_sucursal">
+              {{ sucursal.nombre_sucursal }}
+            </ion-select-option>
+          </ion-select>
         </ion-item>
-
+  
         <ion-item>
-          <ion-input [(ngModel)]="departamento" label="Departamento:" [counter]="true"
-            maxlength="50" required></ion-input>
+          <ion-label>Departamento:</ion-label>
+          <ion-select [(ngModel)]="departamento" placeholder="Seleccionar Departamento">
+            <ion-select-option *ngFor="let departamento of departamentosFiltrados" [value]="departamento.nombre">
+              {{ departamento.nombre }}
+            </ion-select-option>
+          </ion-select>
         </ion-item>
 
 

@@ -20,15 +20,15 @@
       <ion-list>
 
         <ion-item>
-          <ion-input disabled="true" [(ngModel)]="telefono" label="Deuda Total: $4785.89" [counter]="true" 
+          <ion-input disabled="true" [(ngModel)]="telefono" [counter]="true" 
             onkeypress="return (event.charCode >= 48 && event.charCode <= 57)"
             maxlength="10" required></ion-input>
         </ion-item>
 
         <ion-item>
           <ion-input [(ngModel)]="apellido_m" label="Meses A Diferir:" [counter]="true" 
-            onkeypress="return (event.charCode >= 48 && event.charCode <= 57)"
-            maxlength="2" required></ion-input>
+              onkeypress="return (event.charCode >= 48 && event.charCode <= 57)"
+              maxlength="2" required (ngModelChange)="calcularPagoPorMes()"></ion-input>
         </ion-item>
 
         <ion-item>
@@ -38,9 +38,8 @@
         </ion-item>
 
         <ion-item>
-          <ion-input value="0" label="Adeudo Anterior:" [counter]="true" 
-            onkeypress="return (event.charCode >= 48 && event.charCode <= 57)"
-            maxlength="10" required></ion-input>
+          <ion-input [(ngModel)]="correo" label="Observaciones:" [counter]="true" 
+            maxlenght="200" required></ion-input>
         </ion-item>
         
 
