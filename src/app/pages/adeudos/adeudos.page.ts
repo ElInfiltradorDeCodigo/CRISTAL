@@ -45,15 +45,15 @@ export class AdeudosPage implements OnInit {
             this.verEmpleados(adeudo);
           },
         },
-        {
+       /* {
           text: 'Actualizar Adeudo',
           data: {
             action: 'actualizarDatos',
           },
           handler: () => {
-            this.actualizarVenta(adeudo, key);
+            //this.actualizarVenta(adeudo, key);
           },
-        },
+        },*/
         {
           text: 'Cerrar',
           role: 'cancel',

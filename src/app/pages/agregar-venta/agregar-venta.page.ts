@@ -100,6 +100,10 @@ export class AgregarVentaPage implements OnInit {
 
             const updatePromises = [];
 
+            for (let producto of ventaData.productos) {
+              updatePromises.push(this.updateExistenciaProducto(producto));
+          }
+
             if (ventaData.mostrarCampos) {
                 const adeudosRef = this.db.list('/ADEUDOS');
                 await adeudosRef.push({
@@ -110,11 +114,7 @@ export class AgregarVentaPage implements OnInit {
                     observaciones: ventaData.observaciones,
                     fecha: this.fechaFormateada,
                     numero_pago: 0 
-                });
-
-              for (let producto of ventaData.productos) {
-                updatePromises.push(this.updateExistenciaProducto(producto));
-              }             
+                });            
 
             }
 
@@ -146,8 +146,13 @@ private updateExistenciaProducto(producto: any): Promise<void> {
                   const payload: { val(): { existencia: number } } = res[0].payload as any;
                   const existenciaActual = payload.val().existencia;
                   
-                  await this.db.list('/INSUMOS').update(key, {existencia: existenciaActual - producto.cantidad});
-                  resolve();
+                  if (existenciaActual - producto.cantidad >= 0) {
+                    await this.db.list('/INSUMOS').update(key, {existencia: existenciaActual - producto.cantidad});
+                    resolve();
+                } else {
+                    reject("La cantidad vendida es mayor a la existencia del producto: " + producto.nombre);
+                }
+                
               }
           } catch (error) {
               reject(error);
