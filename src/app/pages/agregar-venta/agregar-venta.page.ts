@@ -6,7 +6,10 @@ import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
-
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
+import { TDocumentDefinitions } from 'pdfmake/interfaces';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: 'app-agregar-venta',
@@ -46,6 +49,30 @@ export class AgregarVentaPage implements OnInit {
   get productos(): FormArray {
     return this.ventaForm.get('productos') as FormArray;
   }
+
+  generarPDF(ventaData: any) {
+    let productosString = '';
+    ventaData.productos.forEach((prod: any) => {
+        productosString += `Nombre: ${prod.nombre}, Cantidad: ${prod.cantidad}, Precio: ${prod.precio}\n`;
+    });
+
+    const documentDefinition = {
+      content: [
+            { text: 'Datos De La Venta', fontSize: 16, bold: true, margin: [0, 0, 0, 10] },
+            { text: `Nombre Cliente: ${ventaData.nombre_cliente}` },
+            { text: `Telefono Cliente: ${ventaData.telefono_cliente}` },
+            { text: `Empleado: ${ventaData.empleado}` },
+            { text: `Fecha: ${this.fechaFormateada}`, margin: [0, 0, 0, 10] },
+            { text: 'Productos:', fontSize: 14, bold: true },
+            productosString,{ text: `Total: ${ventaData.total}`, margin: [0, 10, 0, 0] },
+            ventaData.mostrarCampos ? { text: `Total A Diferir: ${ventaData.totalDiferir}` } : {},
+            ventaData.mostrarCampos ? { text: `Pago Por Mes: ${ventaData.meses}` } : {},
+            ventaData.mostrarCampos ? { text: `Observaciones: ${ventaData.observaciones}` } : {}
+          ]
+        } as TDocumentDefinitions;
+
+    pdfMake.createPdf(documentDefinition).download('TicketVenta.pdf');
+}
 
   crearProducto(): FormGroup {
     return this.fb.group({
@@ -121,6 +148,7 @@ export class AgregarVentaPage implements OnInit {
             await Promise.all(updatePromises);
             await this.router.navigate(['/ventas']);
             await this.presentToast('Venta registrada exitosamente!', 'success');
+            this.generarPDF(ventaData);
         } catch (error) {
             
             console.error("Error al registrar venta: ", error);
