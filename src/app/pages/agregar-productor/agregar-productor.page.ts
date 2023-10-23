@@ -65,39 +65,47 @@ export class AgregarProductorPage implements OnInit {
 
         async registerProductor(): Promise<void> {
           if (this.empleadoForm.valid && this.selectedImage) {
-            const { nombre, apellido_p, apellido_m, telefono, localidad, estado } = this.empleadoForm.value;
-            const loading = await this.presentLoading('Registrando productor...');
+              const { nombre, apellido_p, apellido_m, telefono, localidad, estado } = this.empleadoForm.value;
+              const loading = await this.presentLoading('Registrando productor...');
       
-            try {
-              const filePath = `productorImages/${new Date().getTime()}_${this.selectedImage.name}`;
-              const fileRef = this.storage.ref(filePath);
-              const task = this.storage.upload(filePath, this.selectedImage);
+              try {
+                  
+                  const email = `${telefono}@progomex.com`;
+                  const password = `${nombre.replace(/\s+/g, '').toUpperCase()}${telefono.substring(0, 3)}`;
+                  
+                  await this.afAuth.createUserWithEmailAndPassword(email, password);
       
-              await task.snapshotChanges().toPromise();
-              const imageUrl = await fileRef.getDownloadURL().toPromise();
-
-              const productorRef = this.db.list('PRODUCTORES');
-              await productorRef.push({
-                nombre,
-                apellido_p,
-                apellido_m,
-                telefono,
-                localidad,
-                estado,
-                imageUrl
-              });
-              loading.dismiss();
-              this.presentToast('Productor registrado con éxito');
-              this.router.navigate(['/clientes']);
-            } catch (error) {
-              loading.dismiss();
-        console.error('Error:', error);
-        this.presentToast('Error al registrar productor');
-        }
-        } else {
-          this.presentToast('Por favor, rellena el formulario correctamente');
-        }
-      }
+                  const filePath = `productorImages/${new Date().getTime()}_${this.selectedImage.name}`;
+                  const fileRef = this.storage.ref(filePath);
+                  const task = this.storage.upload(filePath, this.selectedImage);
+      
+                  await task.snapshotChanges().toPromise();
+                  const imageUrl = await fileRef.getDownloadURL().toPromise();
+      
+                  const productorRef = this.db.list('PRODUCTORES');
+                  await productorRef.push({
+                      nombre,
+                      apellido_p,
+                      apellido_m,
+                      telefono,
+                      localidad,
+                      estado,
+                      imageUrl,
+                      email,
+                      password
+                  });
+                  loading.dismiss();
+                  this.presentToast('Productor registrado con éxito');
+                  this.router.navigate(['/clientes']);
+              } catch (error) {
+                  loading.dismiss();
+                  console.error('Error:', error);
+                  this.presentToast('Error al registrar productor');
+              }
+          } else {
+              this.presentToast('Por favor, rellena el formulario correctamente');
+          }
+      }      
 
       async presentLoading(loadingMessage: string): Promise<HTMLIonLoadingElement> {
         const loading = await this.loadingController.create({
