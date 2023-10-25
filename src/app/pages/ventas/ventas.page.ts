@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { Observable, map } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-ventas',
@@ -13,6 +14,10 @@ import { Observable, map } from 'rxjs';
 export class VentasPage implements OnInit {
 
   public ventas!: Observable<any[]>;
+  private ventasSubject = new BehaviorSubject<any[]>([]);
+  allVentas: any[] = []; 
+  filteredVentas: any[] = [];  
+  showSearchBar = false;
 
   constructor(private actionSheetCtrl: ActionSheetController, private router: Router,
     private alertController: AlertController, private db: AngularFireDatabase,
@@ -96,7 +101,7 @@ export class VentasPage implements OnInit {
   }
 
   ngOnInit() {
-    this.ventas = this.db.list('VENTAS').snapshotChanges().pipe(
+    this.db.list('VENTAS').snapshotChanges().pipe(
       map(actions => 
         actions.map(a => {
           const data = a.payload.val() as any;
@@ -104,8 +109,13 @@ export class VentasPage implements OnInit {
           return { key, ...data };
         })
       )
-    );
-  }   
+    ).subscribe(data => {
+      this.allVentas = data;
+      this.ventasSubject.next(this.allVentas);
+    });
+    
+    this.ventas = this.ventasSubject.asObservable();
+  }    
 
   obtenerVentas(): Observable<any[]> {
     return this.db.list('VENTAS').valueChanges();
@@ -118,5 +128,28 @@ export class VentasPage implements OnInit {
   getNombreCompleto(nombre_cliente: any): string {
     return `${nombre_cliente.nombre} ${nombre_cliente.apellido_p} ${nombre_cliente.apellido_m}`;
   }
+
+  filterItems(event: Event) {
+    const searchTerm = (event as CustomEvent).detail.value.toLowerCase();
+  
+    if (!searchTerm) {
+      this.ventasSubject.next(this.allVentas);
+      return;
+    }
+  
+    const filtered = this.allVentas.filter(venta => {
+      const nombreCompleto = this.getNombreCompleto(venta.nombre_cliente).toLowerCase();
+      return nombreCompleto.includes(searchTerm) || venta.fecha.toLowerCase().includes(searchTerm);
+    });
+  
+    this.ventasSubject.next(filtered);
+  }
+  
+  toggleSearchBar() {
+    this.showSearchBar = !this.showSearchBar;
+    if (!this.showSearchBar) {
+      this.ventasSubject.next(this.allVentas);
+    }
+  }  
 
 }

@@ -1,7 +1,12 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+      <ion-menu-button slot="start"></ion-menu-button>
+      <ion-icon slot="start" name="search" (click)="toggleSearchBar()"></ion-icon>
+      <ion-searchbar *ngIf="showSearchBar" (ionChange)="filterSucursales($event)" placeholder="Buscar por nombre de sucursal"></ion-searchbar>
+    </ion-buttons>
     <ion-title>Sucursales</ion-title>
-    <ion-menu-button slot="start"></ion-menu-button>
   </ion-toolbar>
 </ion-header>
 

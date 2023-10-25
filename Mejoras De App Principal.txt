@@ -1,14 +1,7 @@
 MEJORAS NECESARIAS:
 
--Buscador de Sucursales
 -Actualizar la foto de Sucursales
--Buscador para los departamentos
--Buscador para los Empleados
--Buscador para los Productores
--Buscador para los Insumos
--Buscador para Ventas
 -Generar Reportes de las ventas hechas en el mes
--Buscador para los Adeudos
 -Implementar el metodo de Marcar Pago si es que se dio en fectivo
 -Condicional de que cuando un Adeudo llegue a 3 pagos se quite
 -Un apartado de Reportes donde movemos la Grafica y los reportes generados y guardados

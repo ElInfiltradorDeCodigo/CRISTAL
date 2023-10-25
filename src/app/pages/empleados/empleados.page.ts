@@ -13,6 +13,9 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 export class EmpleadosPage implements OnInit {
 
   empleados: any[] = [];
+  showSearchBar: boolean = false;
+  searchTerm: string = '';
+  allEmpleados: any[] = [];
 
   constructor(private actionSheetCtrl: ActionSheetController, private router: Router,
     private alertController: AlertController, private db: AngularFireDatabase, private storage: AngularFireStorage) {
@@ -24,18 +27,17 @@ export class EmpleadosPage implements OnInit {
      loadEmpleados(): void {
       const empRef = this.db.list('EMPLEADOS').snapshotChanges();
       empRef.subscribe(snapshots => {
-        this.empleados = snapshots.map(snapshot => {
+        this.allEmpleados = snapshots.map(snapshot => {
           const values = snapshot.payload.val();
           if (typeof values === 'object' && values !== null) {
             return { uid: snapshot.key, ...values };
           } else {
-    
             return {};
           }
         });
+        this.empleados = [...this.allEmpleados];
       });
     }
-  
 
   async presentActionSheet(empleado: any) {
     const actionSheet = await this.actionSheetCtrl.create({
@@ -112,6 +114,14 @@ export class EmpleadosPage implements OnInit {
   ngOnInit() {
   }
 
+  toggleSearchBar() {
+    this.showSearchBar = !this.showSearchBar;
+    if (!this.showSearchBar) {
+      this.empleados = [...this.allEmpleados];
+    }
+  }
+  
+
   borrarEmpleado(empleado: any) {
     const imageRef = this.storage.refFromURL(empleado.imageUrl);
     imageRef.delete().toPromise()
@@ -128,5 +138,22 @@ export class EmpleadosPage implements OnInit {
         console.error('Error al eliminar imagen:', error);
     });
   }
+
+  filterEmpleados(event: any) {
+    const searchTerm = event.target.value;
+    
+    if (!searchTerm) {
+      this.empleados = [...this.allEmpleados];
+      return;
+    }
+    
+    this.empleados = this.allEmpleados.filter(empleado => {
+      let matchesNombre = empleado.nombre && searchTerm && empleado.nombre.toLowerCase().includes(searchTerm.toLowerCase());
+      let matchesCorreo = empleado.correo && searchTerm && empleado.correo.toLowerCase().includes(searchTerm.toLowerCase());
+      let matchesTelefono = empleado.telefono && searchTerm && empleado.telefono.toLowerCase().includes(searchTerm.toLowerCase());
+    
+      return matchesNombre || matchesCorreo || matchesTelefono;
+    });
+  }  
 
 }

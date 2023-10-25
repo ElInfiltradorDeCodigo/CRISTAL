@@ -17,6 +17,8 @@ export class AdeudosPage implements OnInit {
   adeudosData = new BehaviorSubject<any[]>([]);
   subscription!: Subscription;
   adeudos = this.adeudosData.asObservable();
+  showSearchBar: boolean = false;
+  allAdeudos: any[] = [];
 
   constructor(private actionSheetCtrl: ActionSheetController, private router: Router,
     private alertController: AlertController, private db: AngularFireDatabase,private toastController: ToastController) { }
@@ -110,16 +112,40 @@ actualizarVenta(adeudo: any, key: string){
   this.router.navigate(['/actualizar-adeudo', { adeudo: JSON.stringify(adeudo), adeudoId: key }]);
 }
 
-  ngOnInit() {
-    this.subscription = this.db.list('ADEUDOS').snapshotChanges().subscribe(actions => {
-      const updatedAdeudos = actions.map(action => {
-        const val = action.payload.val();
-        return (typeof val === 'object' && val !== null) 
-          ? { key: action.key, ...val } 
-          : { key: action.key };
-      });
-      this.adeudosData.next(updatedAdeudos);
+ngOnInit() {
+  this.subscription = this.db.list('ADEUDOS').snapshotChanges().subscribe(actions => {
+    this.allAdeudos = actions.map(action => {
+      const val = action.payload.val();
+      return (typeof val === 'object' && val !== null) 
+        ? { key: action.key, ...val } 
+        : { key: action.key };
     });
-  }   
+    this.adeudosData.next(this.allAdeudos);
+  });
+}  
+
+  filterAdeudos(event: Event) {
+    const searchTerm = (event as CustomEvent).detail.value.toLowerCase();
+
+    if (!searchTerm) {
+      this.adeudosData.next(this.allAdeudos);
+      return;
+    }
+
+    const filtered = this.allAdeudos.filter(adeudo => {
+      const nombreCompleto = `${adeudo.nombre_cliente.nombre} ${adeudo.nombre_cliente.apellido_p} ${adeudo.nombre_cliente.apellido_m}`.toLowerCase();
+      return nombreCompleto.includes(searchTerm) || adeudo.fecha.toLowerCase().includes(searchTerm);
+    });
+
+    this.adeudosData.next(filtered);
+  }
+
+  toggleSearchBar() {
+    this.showSearchBar = !this.showSearchBar;
+    if (!this.showSearchBar) {
+      this.adeudosData.next(this.allAdeudos);
+    }
+  }
+
 
 }

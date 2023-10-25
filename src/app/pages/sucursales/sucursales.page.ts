@@ -3,7 +3,7 @@ import { ActionSheetController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
-import { Observable, map } from 'rxjs';
+import { Observable, map, of } from 'rxjs';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { ToastController } from '@ionic/angular';
 
@@ -15,6 +15,8 @@ import { ToastController } from '@ionic/angular';
 export class SucursalesPage implements OnInit {
 
   sucursales$!: Observable<any[]>;
+  allSucursales!: any[];
+  showSearchBar = false;
 
   constructor(private actionSheetCtrl: ActionSheetController, private router: Router,
                private alertController: AlertController, private db: AngularFireDatabase,
@@ -126,12 +128,35 @@ export class SucursalesPage implements OnInit {
 
   }
 
+  toggleSearchBar() {
+    this.showSearchBar = !this.showSearchBar;
+    if (!this.showSearchBar) {
+      this.sucursales$ = of(this.allSucursales);
+    }
+  }
+
+  filterSucursales(event: Event) {
+    const searchTerm = (event as CustomEvent).detail.value.toLowerCase();
+    if (!searchTerm) {
+      this.sucursales$ = of(this.allSucursales);
+      return;
+    }
+    const filteredSucursales = this.allSucursales.filter(sucursal => {
+      return sucursal.nombre_sucursal.toLowerCase().includes(searchTerm);
+    });
+    this.sucursales$ = of(filteredSucursales);
+  }
+
   ngOnInit() {
     this.sucursales$ = this.db.list('SUCURSALES').snapshotChanges().pipe(
       map(changes => 
         changes.map(c => ({ key: c.payload.key, ...(c.payload.val() as object) }))
       )
     );
-  }  
+    
+    this.sucursales$.subscribe(sucursales => {
+      this.allSucursales = sucursales;
+    });
+  }
 
 }

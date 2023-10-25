@@ -14,6 +14,8 @@ import { ToastController } from '@ionic/angular';
 export class InsumosPage implements OnInit {
 
   insumos: any[] = [];
+  allInsumos: any[] = [];
+  showSearchBar = false; 
 
   constructor(private actionSheetCtrl: ActionSheetController, private router: Router,
     private alertController: AlertController, private db: AngularFireDatabase, private storage: AngularFireStorage,
@@ -132,13 +134,36 @@ export class InsumosPage implements OnInit {
 
   ngOnInit() {
     this.db.list('INSUMOS').snapshotChanges().subscribe((snapshots: any[]) => {
-      this.insumos = snapshots.map(snapshot => {
+      this.allInsumos = snapshots.map(snapshot => {
         return {
           key: snapshot.key,
           ...snapshot.payload.val()
         };
       });
+      this.insumos = [...this.allInsumos];
     });
-}
+  }
+
+  filterItems(event: Event) {
+    const searchTerm = (event as CustomEvent).detail.value.toLowerCase();
+  
+    if (!searchTerm) {
+      this.insumos = this.allInsumos;
+      return;
+    }
+  
+    this.insumos = this.allInsumos.filter(insumo => {
+      return insumo.nombre.toLowerCase().includes(searchTerm) || insumo.clave.toLowerCase().includes(searchTerm);
+    });
+  }
+
+  toggleSearchBar() {
+    this.showSearchBar = !this.showSearchBar;
+    if (!this.showSearchBar) {
+      this.insumos = [...this.allInsumos];
+    }
+  }
+  
+  
 
 }

@@ -5,7 +5,7 @@ import { AlertController } from '@ionic/angular';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 
 interface Departamento {
-  key?: string; 
+  key?: string | null; 
   nombre: string;
   sucursal: string;
   autor: string;
@@ -20,6 +20,8 @@ interface Departamento {
 export class DepartamentosPage implements OnInit {
 
   departamentos: any[] = [];
+  showSearchBar: boolean = false;
+  allDepartamentos: Departamento[] = [];
 
   constructor(private actionSheetCtrl: ActionSheetController, private router: Router,
     private alertController: AlertController, private db: AngularFireDatabase) { }
@@ -90,17 +92,42 @@ export class DepartamentosPage implements OnInit {
 
   }
 
+  toggleSearchBar() {
+    this.showSearchBar = !this.showSearchBar;
+    if (!this.showSearchBar) {
+      this.departamentos = [...this.allDepartamentos];
+    }
+  }
+  
+
+  filterDepartamentos(event: any) {
+    const searchTerm = event.target.value;
+  
+    if (!searchTerm) {
+      this.departamentos = [...this.allDepartamentos];
+      return;
+    }
+  
+    this.departamentos = this.allDepartamentos.filter(departamento => {
+      let matchesName = departamento.nombre && searchTerm && departamento.nombre.toLowerCase().includes(searchTerm.toLowerCase());
+      let matchesSucursal = departamento.sucursal && searchTerm && departamento.sucursal.toLowerCase().includes(searchTerm.toLowerCase());
+  
+      return matchesName || matchesSucursal;
+    });
+  }
+
   ngOnInit() {
     this.cargarDepartamentos();
   }
 
   cargarDepartamentos() {
     this.db.list('DEPARTAMENTOS').snapshotChanges().subscribe(items => {
-      this.departamentos = items.map(item => {
+      this.allDepartamentos = items.map(item => {
         const data = item.payload.val() as Departamento;
         const key = item.payload.key;
         return { key, ...data }; 
       });
+      this.departamentos = [...this.allDepartamentos];
     });
   }
   

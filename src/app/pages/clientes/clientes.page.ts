@@ -16,7 +16,9 @@ export class ClientesPage implements OnInit {
 
   productores!: Observable<any[]>;
   private _productores = new BehaviorSubject<any[]>([]);
+  allProductores: any[] = []; 
   selectedProductor: any;
+  showSearchBar = false; 
 
   constructor(private actionSheetCtrl: ActionSheetController, private router: Router,
     private alertController: AlertController, private db: AngularFireDatabase, private storage: AngularFireStorage,
@@ -109,6 +111,12 @@ export class ClientesPage implements OnInit {
     this.router.navigate(['/actualizar-productor', { productor: JSON.stringify(this.selectedProductor) }]);
   }  
 
+  toggleSearchBar() {
+    this.showSearchBar = !this.showSearchBar;
+    if (!this.showSearchBar) {
+      this._productores.next(this.allProductores);
+    }
+  }
 
   ngOnInit() {
 
@@ -125,6 +133,7 @@ export class ClientesPage implements OnInit {
         }
       });
       this._productores.next(productoresData);
+      this.allProductores = productoresData;
     });
 
     this.productores = this._productores.asObservable();
@@ -145,5 +154,23 @@ async eliminarProductor(productorKey: string, imageUrl: string) {
       this.showToast("Error al eliminar productor", 'danger');
   }
 }
+
+  filterProductores(event: any) {
+    const searchTerm = event.target.value;
+
+    if (!searchTerm) {
+      this._productores.next(this.allProductores);
+      return;
+    }
+
+    const filteredProductores = this.allProductores.filter(productor => {
+      let matchesNombre = productor.nombre && searchTerm && productor.nombre.toLowerCase().includes(searchTerm.toLowerCase());
+      let matchesTelefono = productor.telefono && searchTerm && productor.telefono.toLowerCase().includes(searchTerm.toLowerCase());
+
+      return matchesNombre || matchesTelefono;
+    });
+
+    this._productores.next(filteredProductores); 
+  }
 
 }

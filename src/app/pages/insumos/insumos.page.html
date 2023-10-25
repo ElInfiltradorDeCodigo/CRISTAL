@@ -3,10 +3,13 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
       <ion-menu-button slot="start"></ion-menu-button>
+      <ion-icon slot="start" name="search" (click)="toggleSearchBar()"></ion-icon>
+      <ion-searchbar *ngIf="showSearchBar" (ionChange)="filterItems($event)" placeholder="Buscar insumo por nombre o clave"></ion-searchbar>
     </ion-buttons>
     <ion-title>Insumos</ion-title>
   </ion-toolbar>
 </ion-header>
+
 
 <ion-content fullscreen>
 
