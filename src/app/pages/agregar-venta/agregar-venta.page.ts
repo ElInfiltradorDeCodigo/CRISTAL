@@ -10,6 +10,8 @@ import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import { TDocumentDefinitions } from 'pdfmake/interfaces';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
+import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-agregar-venta',
@@ -25,7 +27,8 @@ export class AgregarVentaPage implements OnInit {
 
   constructor(public toastController: ToastController, private fb: FormBuilder, 
               private db: AngularFireDatabase, private afAuth: AngularFireAuth, 
-              private router: Router, private loadingController: LoadingController) { 
+              private router: Router, private loadingController: LoadingController,
+              private storage: AngularFireStorage,) { 
 
     this.ventaForm = this.fb.group({
       nombre_cliente: ['', [Validators.required, Validators.maxLength(50)]],
@@ -50,7 +53,8 @@ export class AgregarVentaPage implements OnInit {
     return this.ventaForm.get('productos') as FormArray;
   }
 
-  generarPDF(ventaData: any) {
+  generarPDF(ventaData: any): Promise<Blob> {
+    return new Promise((resolve, reject) => {
     const productosTableBody = [
         [{ text: 'Producto', bold: true }, { text: 'Cantidad', bold: true }, { text: 'Precio', bold: true }, { text: 'Total', bold: true }]
     ];
@@ -99,8 +103,16 @@ export class AgregarVentaPage implements OnInit {
         }
     } as TDocumentDefinitions;
 
-    pdfMake.createPdf(documentDefinition).download('TicketVenta.pdf');
-}  
+    try {
+      const blob = pdfMake.createPdf(documentDefinition).getBlob(blob => {
+        resolve(blob);
+      });
+    } catch (err) {
+      console.error("Error al generar PDF:", err);
+      reject(err);
+    }    
+  });
+}
   
 
   crearProducto(): FormGroup {
@@ -111,9 +123,11 @@ export class AgregarVentaPage implements OnInit {
     });
   }
 
+
   agregarProducto() {
     this.productos.push(this.crearProducto());
   }
+
 
   toggleCampos() {
     if (this.ventaForm.get('mostrarCampos')?.value) {
@@ -141,11 +155,17 @@ export class AgregarVentaPage implements OnInit {
         await loading.present();
 
         const ventaData = this.ventaForm.getRawValue();
+        const uid = this.db.createPushId();
+        const pdfBlob = await this.generarPDF(ventaData);
+
+        const ref = this.storage.ref(`ventas/${uid}.pdf`);
+        const task = ref.put(pdfBlob);
 
         try {
             
             const ventasRef = this.db.list('/VENTAS');
-            await ventasRef.push({
+            const uid = this.db.createPushId();
+            await ventasRef.set(uid, {
                 nombre_cliente: ventaData.nombre_cliente,
                 telefono_cliente: ventaData.telefono_cliente,
                 empleado: ventaData.empleado,
@@ -177,7 +197,6 @@ export class AgregarVentaPage implements OnInit {
             await Promise.all(updatePromises);
             await this.router.navigate(['/ventas']);
             await this.presentToast('Venta registrada exitosamente!', 'success');
-            this.generarPDF(ventaData);
         } catch (error) {
             
             console.error("Error al registrar venta: ", error);
@@ -193,41 +212,43 @@ export class AgregarVentaPage implements OnInit {
     }
 }
 
-private updateExistenciaProducto(producto: any): Promise<void> {
-  return new Promise<void>((resolve, reject) => {
-      const insumoRef = this.db.list('/INSUMOS', ref => ref.orderByChild('nombre').equalTo(producto.nombre));
-      const sub = insumoRef.snapshotChanges().subscribe(async (res) => {
-          try {
-              if (res.length > 0 && res[0].key !== null) { 
-                  const key = res[0].key;
-                  const payload: { val(): { existencia: number } } = res[0].payload as any;
-                  const existenciaActual = payload.val().existencia;
-                  
-                  if (existenciaActual - producto.cantidad >= 0) {
-                    await this.db.list('/INSUMOS').update(key, {existencia: existenciaActual - producto.cantidad});
-                    resolve();
-                } else {
-                    reject("La cantidad vendida es mayor a la existencia del producto: " + producto.nombre);
-                }
-                
-              }
-          } catch (error) {
-              reject(error);
-            } finally {
-              sub.unsubscribe();
-          }
-      });
-  });
-}
 
-async presentToast(message: string, color: string) {
-  const toast = await this.toastController.create({
-    message: message,
-    duration: 2000,
-    color: color,
-  });
-  toast.present();
-}
+  private updateExistenciaProducto(producto: any): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+        const insumoRef = this.db.list('/INSUMOS', ref => ref.orderByChild('nombre').equalTo(producto.nombre));
+        const sub = insumoRef.snapshotChanges().subscribe(async (res) => {
+            try {
+                if (res.length > 0 && res[0].key !== null) { 
+                    const key = res[0].key;
+                    const payload: { val(): { existencia: number } } = res[0].payload as any;
+                    const existenciaActual = payload.val().existencia;
+                    
+                    if (existenciaActual - producto.cantidad >= 0) {
+                      await this.db.list('/INSUMOS').update(key, {existencia: existenciaActual - producto.cantidad});
+                      resolve();
+                  } else {
+                      reject("La cantidad vendida es mayor a la existencia del producto: " + producto.nombre);
+                  }
+                  
+                }
+            } catch (error) {
+                reject(error);
+              } finally {
+                sub.unsubscribe();
+            }
+        });
+    });
+  }
+
+
+  async presentToast(message: string, color: string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000,
+      color: color,
+    });
+    toast.present();
+  }
 
 
   ngOnInit() {
@@ -238,6 +259,7 @@ async presentToast(message: string, color: string) {
 
   }
 
+
   obtenerProductores() {
     this.db.list('/PRODUCTORES').valueChanges().subscribe((productores: any[]) => {
       this.productores = productores;
@@ -246,12 +268,14 @@ async presentToast(message: string, color: string) {
     });
   }
 
+
   productorSeleccionado(event: any) {
     const productorSeleccionado = event.detail.value;
     if (productorSeleccionado) {
         this.ventaForm.get('telefono_cliente')?.setValue(productorSeleccionado.telefono);
     }
   }
+
 
   cargarUsuarioActual() {
     this.afAuth.authState.subscribe(user => {
@@ -261,6 +285,7 @@ async presentToast(message: string, color: string) {
     });
   }
 
+
   cargarInsumos() {
     this.db.list('/INSUMOS').valueChanges().subscribe((insumos: any[]) => {
       this.insumos = insumos;
@@ -269,6 +294,7 @@ async presentToast(message: string, color: string) {
     });
   }
 
+
   cargarPrecio(event: any, productoIndex: number) {
     const nombreInsumoSeleccionado = event.detail.value;
     const insumoSeleccionado = this.insumos.find(insumo => insumo.nombre === nombreInsumoSeleccionado);
@@ -276,6 +302,7 @@ async presentToast(message: string, color: string) {
       this.productos.at(productoIndex).get('precio')?.setValue(insumoSeleccionado.precio);
     }
   }
+
 
   calcularTotal() {
     let total = 0;
@@ -290,11 +317,13 @@ async presentToast(message: string, color: string) {
     this.ventaForm.get('total')?.setValue(total.toFixed(2));
   }
 
+
   eliminarProducto(index: number) {
     this.productos.removeAt(index);
     this.calcularTotal(); 
   }
 
+  
   verificarCantidad(productoIndex: number) {
     const nombreInsumoSeleccionado = this.productos.at(productoIndex).get('nombre')?.value;
     const cantidadIngresada = this.productos.at(productoIndex).get('cantidad')?.value;

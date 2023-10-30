@@ -140,7 +140,11 @@ const routes: Routes = [
     path: '',
     redirectTo: 'inicio-sesion',
     pathMatch: 'full'
+  },  {
+    path: 'reportes',
+    loadChildren: () => import('./pages/reportes/reportes.module').then( m => m.ReportesPageModule)
   },
+
 ];
 
 @NgModule({

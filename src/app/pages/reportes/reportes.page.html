@@ -1,0 +1,25 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>Reportes</ion-title>
+    <ion-menu-button slot="start"></ion-menu-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <h1>Reportes de Ventas</h1>
+
+  <h3>Insumos Vendidos En Mes Actual</h3>
+
+    <div style="display: block;">
+      <canvas baseChart
+              [datasets]="barChartData"
+              [labels]="barChartLabels"
+              [options]="barChartOptions"
+              [legend]="barChartLegend"
+              ></canvas>
+    </div>
+  
+    <script src="node_modules/chart.js/src/chart.js"></script>
+
+</ion-content>

@@ -43,7 +43,7 @@ export class InicioSesionPage implements OnInit {
                       
                       await this.router.navigate(['/inicio']);
                       const toast = await this.toastController.create({
-                          message: '¡Bienvenido Empleado!',
+                          message: '¡Bienvenido Emplead@!',
                           duration: 2000,
                           cssClass: 'toast-custom'
                       });

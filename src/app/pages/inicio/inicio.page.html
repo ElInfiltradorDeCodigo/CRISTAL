@@ -7,7 +7,7 @@
 
 <ion-content fullscreen>
 
-  <h1>Bienvenido: {{ employeeName }}!</h1>
+  <h1>Bienvenid@: {{ employeeName }}!</h1>
   
   <h3>Acciones Rapidas</h3>
 
@@ -63,19 +63,5 @@
       
     </ion-row>
   </ion-grid>
-
-    <h3>Insumos Vendidos En Mes Actual</h3>
-
-    <div style="display: block;">
-      <canvas baseChart
-              [datasets]="barChartData"
-              [labels]="barChartLabels"
-              [options]="barChartOptions"
-              [legend]="barChartLegend"
-              ></canvas>
-    </div>
-  
-    <script src="node_modules/chart.js/src/chart.js"></script>
-
 
 </ion-content>

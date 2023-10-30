@@ -51,7 +51,6 @@ constructor(public toastController: ToastController,private fb: FormBuilder,
       if (inputElement.files && inputElement.files[0]) {
           this.selectedImage = inputElement.files[0];
 
-          // Validación del tipo de archivo
           if (!this.selectedImage.type.startsWith('image/')) {
               this.presentToast('Por favor, selecciona una imagen válida');
               this.selectedImage = null;

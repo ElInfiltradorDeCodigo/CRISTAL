@@ -18,6 +18,12 @@
 
     <ion-list>
       <ion-list>
+
+        <ion-item>
+          <img [src]="imagePreview" alt="Click para seleccionar una imagen" (click)="fileInput.click()"
+            style="width: 95px; height: 95px; cursor: pointer; margin: 0 auto; margin-bottom: 15px;">
+          <input type="file" #fileInput (change)="onImageSelected($event)" style="display: none;">
+        </ion-item>
         
         <ion-item>
           <ion-input [(ngModel)]="nombre_sucursal" label="Nombre Sucursal:" [counter]="true"

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { ToastController, LoadingController } from '@ionic/angular'; // 1. Importar LoadingController
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { ToastController, LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 @Component({
   selector: 'app-actualizar-sucursal',
@@ -14,23 +15,34 @@ tipo_sucursal: any;
 colonia: any;
 codigo_postal: any;
 localidad: any;
-
 sucursalKey!: string;
 
-  constructor(public toastController: ToastController, private router: Router,
-              private db: AngularFireDatabase,
-              private loadingController: LoadingController) { }  // 2. Inyectar LoadingController en el constructor
+@ViewChild('fileInput') fileInput!: ElementRef;
+  selectedImage: File | null = null;
+  imagePreview: string = "../../../assets/img/add-image.png";
 
-// 3. Método para mostrar el ProgressDialog
-async presentLoading(message: string) {
-  const loading = await this.loadingController.create({
-    message: message,
-    spinner: 'crescent',
-    backdropDismiss: false
-  });
-  await loading.present();
-  return loading;
-}
+  constructor(public toastController: ToastController, private router: Router,
+              private db: AngularFireDatabase, private loadingController: LoadingController,
+              private storage: AngularFireStorage) { } 
+
+  async presentLoading(message: string) {
+    const loading = await this.loadingController.create({
+      message: message,
+      spinner: 'crescent',
+      backdropDismiss: false
+    });
+    await loading.present();
+    return loading;
+  }
+
+  async presentToast(message: string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000
+    });
+    toast.present();
+  }
+
 
 async datosCambiados() {
   const loading = await this.presentLoading('Actualizando...'); 
@@ -63,6 +75,20 @@ async datosCambiados() {
       });
       toast.present();
     });
+
+    if (this.selectedImage) {
+      const loading = await this.presentLoading('Actualizando imagen...');
+      try {
+        const filePath = `sucursales/${this.selectedImage.name}_${new Date().getTime()}`;
+        const result = await this.storage.ref(filePath).put(this.selectedImage);
+        const imageUrl = await result.ref.getDownloadURL();
+        this.db.object(`SUCURSALES/${this.sucursalKey}`).update({ imageUrl: imageUrl });
+      } catch (error) {
+        console.error("Error al actualizar la imagen: ", error);
+        this.presentToast('Error al actualizar la imagen, por favor intenta de nuevo.');
+      }
+      loading.dismiss();
+    }
   }
 
   ngOnInit() {
@@ -83,6 +109,33 @@ async datosCambiados() {
       this.sucursalKey = sucursal.key;
     }
   }
+
+  onImageSelected(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    if (inputElement.files && inputElement.files[0]) {
+      this.selectedImage = inputElement.files[0];
+
+      if (!this.selectedImage.type.startsWith('image/')) {
+        this.presentToast('Por favor, selecciona una imagen válida');
+        this.selectedImage = null;
+        return;
+      }
+
+      this.previewImage(this.selectedImage);
+    } else {
+      this.selectedImage = null;
+    }
+  }
+
+  private previewImage(file: File): void {
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result as string;
+    };
+    reader.readAsDataURL(file);
+  }
+
+
 
 }
 
