@@ -9,6 +9,12 @@
 
   <h1>Reportes de Ventas</h1>
 
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button [routerLink]="['/agregar-venta']" color="secondary">
+      <ion-icon name="document-text"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
   <h3>Insumos Vendidos En Mes Actual</h3>
 
     <div style="display: block;">
@@ -21,5 +27,16 @@
     </div>
   
     <script src="node_modules/chart.js/src/chart.js"></script>
+
+    <h3>Reportes de Ventas</h3>
+
+    <ion-list>
+      <ion-item *ngFor="let ticket of listaDeTickets">
+        <ion-label>{{ ticket.nombre }}</ion-label>
+        <ion-button fill="outline" (click)="descargarTicket(ticket.url)">
+          Descargar
+        </ion-button>
+      </ion-item>
+    </ion-list>
 
 </ion-content>

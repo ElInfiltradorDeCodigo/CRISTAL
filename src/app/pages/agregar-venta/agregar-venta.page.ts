@@ -162,17 +162,15 @@ export class AgregarVentaPage implements OnInit {
         const task = ref.put(pdfBlob);
 
         try {
-            
-            const ventasRef = this.db.list('/VENTAS');
-            const uid = this.db.createPushId();
-            await ventasRef.set(uid, {
-                nombre_cliente: ventaData.nombre_cliente,
-                telefono_cliente: ventaData.telefono_cliente,
-                empleado: ventaData.empleado,
-                productos: ventaData.productos,
-                total: ventaData.total,
-                fecha: this.fechaFormateada
-            });
+          const ventasRef = this.db.list('/VENTAS');
+          await ventasRef.set(uid, {
+            nombre_cliente: ventaData.nombre_cliente,
+            telefono_cliente: ventaData.telefono_cliente,
+            empleado: ventaData.empleado,
+            productos: ventaData.productos,
+            total: ventaData.total,
+            fecha: this.fechaFormateada
+          });
 
             const updatePromises = [];
 

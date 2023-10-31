@@ -1,11 +1,8 @@
 MEJORAS NECESARIAS:
 
--Actualizar la foto de Sucursales
 -Generar Reportes de las ventas hechas en el mes
 -Implementar el metodo de Marcar Pago si es que se dio en fectivo
 -Condicional de que cuando un Adeudo llegue a 3 pagos se quite
--Un apartado de Reportes donde movemos la Grafica y los reportes generados y guardados
--Implementar un PLUGIN para los PDF de Venta y Reportes de Venta
 
 
 MEJORAS NO TAN NECESARIAS:

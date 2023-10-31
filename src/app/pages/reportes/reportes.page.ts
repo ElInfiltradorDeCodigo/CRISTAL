@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 interface Venta {
   empleado: string;
@@ -54,11 +55,14 @@ export class ReportesPage implements OnInit {
     { data: [], label: 'Cantidad En Base A La Unidad Medida', backgroundColor: [] } 
 ];
 
-  constructor(private db: AngularFireDatabase, private afAuth: AngularFireAuth) { }
+  public listaDeTickets: any[] = [];
+
+  constructor(private db: AngularFireDatabase, private afAuth: AngularFireAuth,private storage: AngularFireStorage) { }
 
   ngOnInit() {
     this.loadChartData();
     this.loadEmployeeName();
+    this.listarTickets();
   }
 
   loadChartData() {
@@ -84,6 +88,16 @@ export class ReportesPage implements OnInit {
 
   }
 
+  async listarTickets() {
+    const ref = this.storage.ref('ventas/');
+    ref.listAll().subscribe(async result => {
+      this.listaDeTickets = await Promise.all(result.items.map(async item => {
+        const url = await item.getDownloadURL();
+        return { nombre: item.name, url };
+      }));
+    });
+  }
+
   loadEmployeeName() {
     this.afAuth.user.subscribe(user => {
         if (user) {
@@ -99,6 +113,11 @@ export class ReportesPage implements OnInit {
             this.employeeName = 'No autenticado';
         }
     });
+}
+
+descargarTicket(url: string) {
+  
+  window.open(url, '_blank');
 }
 
 }

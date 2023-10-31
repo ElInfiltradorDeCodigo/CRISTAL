@@ -45,6 +45,10 @@
     </div>
 </ion-list>
 
+<ion-button expand="block" style="max-width: 200px; margin: 0 auto; margin-top: 15px;" color="secondary" 
+            [disabled]="!venta?.uid" (click)="descargarTicket(venta?.uid)">Descargar Ticket </ion-button>
+
+
 </ion-list>
 
 </div>
