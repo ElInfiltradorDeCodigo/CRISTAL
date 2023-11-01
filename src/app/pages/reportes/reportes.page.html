@@ -10,7 +10,7 @@
   <h1>Reportes de Ventas</h1>
 
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-    <ion-fab-button [routerLink]="['/agregar-venta']" color="secondary">
+    <ion-fab-button color="secondary" (click)="generateAndDownloadPDF()">
       <ion-icon name="document-text"></ion-icon>
     </ion-fab-button>
   </ion-fab>

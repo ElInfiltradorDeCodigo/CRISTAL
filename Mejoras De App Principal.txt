@@ -1,6 +1,5 @@
 MEJORAS NECESARIAS:
 
--Generar Reportes de las ventas hechas en el mes
 -Implementar el metodo de Marcar Pago si es que se dio en fectivo
 -Condicional de que cuando un Adeudo llegue a 3 pagos se quite
 
