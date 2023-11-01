@@ -104,6 +104,10 @@
         "source": "io.ionic.starter.app-pngs-22:/drawable-anydpi-v24/ic_launcher_foreground.xml"
     },
     {
+        "merged": "io.ionic.starter.app-merged_res-26:/drawable_logo_get.png.flat",
+        "source": "io.ionic.starter.app-main-28:/drawable/logo_get.png"
+    },
+    {
         "merged": "io.ionic.starter.app-merged_res-26:/drawable_ic_launcher_background.xml.flat",
         "source": "io.ionic.starter.app-main-28:/drawable/ic_launcher_background.xml"
     },
