@@ -27,6 +27,7 @@ export class AppComponent {
     { title: 'Ventas', url: '/ventas', icon: 'wallet' },
     { title: 'Adeudos', url: '/adeudos', icon: 'cash' },
     { title: 'Reportes', url: '/reportes', icon: 'document-text' },
+    { title: 'Pronosticos (Beta)', url: '/pronosticos', icon: 'pricetags' },
   ];
   public opciones = [
     { title: 'Acerca De', url: '/acerca', icon: 'help' },

@@ -1,0 +1,35 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button 
+        defaultHref="/pronosticos"
+        color="secondary">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title>Resultados de Pronostico</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <h1>Resultados del Pronóstico de Ventas</h1>
+  <div *ngIf="predictionData && predictionData.predictions">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title class="pepe">Ventas Estimadas de Cada Producto</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <ion-item *ngFor="let pred of predictionData.predictions">
+            <ion-label>{{ pred.name }}:</ion-label>
+            <ion-note class="prediction-value" slot="end">{{ pred.value | number:'1.2-2' }}</ion-note>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
+
+
+
+
+

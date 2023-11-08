@@ -144,6 +144,14 @@ const routes: Routes = [
     path: 'reportes',
     loadChildren: () => import('./pages/reportes/reportes.module').then( m => m.ReportesPageModule)
   },
+  {
+    path: 'pronosticos',
+    loadChildren: () => import('./pages/pronosticos/pronosticos.module').then( m => m.PronosticosPageModule)
+  },
+  {
+    path: 'resultados',
+    loadChildren: () => import('./pages/resultados/resultados.module').then( m => m.ResultadosPageModule)
+  },
 
 ];
 

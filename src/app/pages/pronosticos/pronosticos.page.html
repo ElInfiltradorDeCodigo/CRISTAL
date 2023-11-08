@@ -1,0 +1,56 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>Pronosticos</ion-title>
+    <ion-menu-button slot="start"></ion-menu-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <h1>Pronóstico de Ventas</h1>
+  <form (ngSubmit)="submitPrediction()" #predictionForm="ngForm">
+    
+    <ion-item>
+      <ion-label position="floating">Fecha</ion-label>
+      <ion-input type="date" [(ngModel)]="data.fecha" name="fecha" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Precio Ácido Fórmico</ion-label>
+      <ion-input type="text" pattern="^[0-9]*\.?[0-9]+$" [(ngModel)]="data.precio_acido_formico" name="precio_acido_formico" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Precio Alambre Galvanizado</ion-label>
+      <ion-input type="text" pattern="^[0-9]*\.?[0-9]+$" [(ngModel)]="data.precio_alambre_galvanizado" name="precio_alambre_galvanizado" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Precio Cuchillas R2</ion-label>
+      <ion-input type="text" pattern="^[0-9]*\.?[0-9]+$" [(ngModel)]="data.precio_cuchillas_r2" name="precio_cuchillas_r2" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Precio Cuchillas R1</ion-label>
+      <ion-input type="text" pattern="^[0-9]*\.?[0-9]+$" [(ngModel)]="data.precio_cuchillas_r1" name="precio_cuchillas_r1" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Precio Canaletas</ion-label>
+      <ion-input type="text" pattern="^[0-9]*\.?[0-9]+$" [(ngModel)]="data.precio_canaletas" name="precio_canaletas" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Precio Tazas Recolección</ion-label>
+      <ion-input type="text" pattern="^[0-9]*\.?[0-9]+$" [(ngModel)]="data.precio_tazas_recoleccion" name="precio_tazas_recoleccion" required></ion-input>
+    </ion-item>
+
+    <div class="ion-padding-top">
+      <ion-button 
+        style="max-width: 200px; margin: 0 auto;"
+        expand="block" 
+        type="submit" 
+        [disabled]="!predictionForm.form.valid">Predecir</ion-button>
+    </div>
+  </form>
+</ion-content>
+
