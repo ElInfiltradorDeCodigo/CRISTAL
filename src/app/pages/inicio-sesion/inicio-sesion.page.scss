@@ -1,48 +1,63 @@
-
-  ion-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-  }
-  
-  ion-item {
-    margin-bottom: 15px;
-  }
-  
-  .btn{
-
-    padding: 10px 20px 10px 20px;
-    border-radius: 10px;
-
-  }
-
-  .logoSesion{
-
-    margin-bottom: 55px;
-    margin-top: 55px;
-    align-items: center;
-    align-self: center;
-    align-content: center;
-    margin:0 auto;
-
+ion-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  justify-content: center; 
+  text-align: center;
+  height: 100vh;
+  width: 100%; 
 }
 
-.btnSesion{
+ion-item {
+  margin-bottom: 15px;
+  width: 90%; 
+  max-width: 400px; 
+  margin-left: auto;
+  margin-right: auto; 
+}
 
+.btn {
+  padding: 10px 20px;
+  border-radius: 10px;
+  width: 90%; /* Full width of the container with padding */
+  max-width: 200px; /* Max button width */
+  margin: 0 auto; /* Auto margins for horizontal centering */
+}
+
+.logoSesion {
+  display: block; /* Esto asegura que se trate como un bloque para márgenes automáticos */
+  width: 50%; /* Ajusta el ancho para responsividad */
+  max-width: 220px; 
+  max-height: 220px; /* Altura máxima del logo */
+  margin: 75px auto 50px; 
+}
+
+
+.btnSesion {
   text-align: center;
-  position: absolute;
-  left: 20px;
-  right: 20px;
-  margin-top: 15px;
+  position: relative; /* Positioned relative to its parent */
+  width: 100%; /* Full width */
+  padding: 0 10px; /* Add padding if needed */
+}
 
+/* Ajustes para dispositivos más grandes con Media Queries */
+@media (min-width: 768px) {
+  .login-card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 90%; /* Puedes ajustar esto como mejor te parezca */
+    max-width: 450px; /* El ancho máximo para la tarjeta de inicio de sesión */
+    margin: auto; /* Centrar la tarjeta en la página */
+    padding: 2em; /* Espaciado dentro de la tarjeta */
+    border-radius: 15px; /* Bordes redondeados para la tarjeta */
+    background: #ffffff; /* Fondo blanco para la tarjeta */
+  }
 }
 
 .toast-custom {
   background-color: #333;
   color: #fff;
-  font-size: 26px;
+  font-size: 1.6rem; /* 'rem' unit for font sizes */
   border-radius: 10px;
-  padding: 16px;
+  padding: 1em;
 }
