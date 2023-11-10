@@ -15,21 +15,30 @@
     display: block; /* Ensures button width is governed by max-width */
   }
   
-  .form-action {
-    padding: 20px; /* Adds padding inside the action area */
-    text-align: center; /* Centers the content */
-  }
   
   /* Use Ionic CSS utilities for padding and margin as needed */
   ion-item {
     --padding-start: 0;
     --min-height: 50px; /* Enhances tap target size for mobile users */
   }
-  
-  /* Responsive adjustments */
-  @media (min-width: 576px) {
-    /* Adjustments for larger screens can be made here */
-  }
+
   
   /* Additional styles for list items and labels can be added as necessary */
   
+  /* Add classes for styling instead of inline styles */
+.update-button {
+  max-width: 200px;
+  width: 100%; /* Makes button width responsive */
+  margin: auto; /* Centrally aligns the button with auto margins */
+}
+
+.datosCambio {
+  padding: 0 5%; /* Add padding for smaller screens and adjust as necessary */
+}
+
+/* Media query for larger screens to adjust padding */
+@media (min-width: 768px) {
+  .datosCambio {
+    padding: 0 10%; /* Increase padding for larger screens */
+  }
+}

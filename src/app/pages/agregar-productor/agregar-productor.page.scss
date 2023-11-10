@@ -1,0 +1,40 @@
+.profile-image-item {
+    display: flex;
+    justify-content: center;
+}
+
+.profile-image {
+    width: 95px;
+    height: 95px;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+.btn {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+}
+
+ion-button {
+    max-width: 200px;
+    width: 100%;
+}
+/* Add classes for styling instead of inline styles */
+.update-button {
+    max-width: 200px;
+    width: 100%; /* Makes button width responsive */
+    margin: auto; /* Centrally aligns the button with auto margins */
+  }
+  
+  .datosCambio {
+    padding: 0 5%; /* Add padding for smaller screens and adjust as necessary */
+  }
+  
+  /* Media query for larger screens to adjust padding */
+  @media (min-width: 768px) {
+    .datosCambio {
+      padding: 0 10%; /* Increase padding for larger screens */
+    }
+  }
+  

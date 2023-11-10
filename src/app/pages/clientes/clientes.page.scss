@@ -1,3 +1,21 @@
+
+
+/* Responsive images within ion-thumbnail */
+ion-thumbnail img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Media Query for larger screens */
+@media (min-width: 768px) {
+    ion-header,
+    ion-toolbar,
+    ion-title {
+        font-size: 24px; /* Fixed font size for larger screens */
+    }
+}
+
+/* Positioning of the FAB */
 ion-fab {
-    margin-bottom: 20px;
-  }
+    margin-bottom: 5vh; /* Use viewport height to keep it responsive */
+}

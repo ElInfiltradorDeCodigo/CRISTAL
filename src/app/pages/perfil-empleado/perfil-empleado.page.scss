@@ -20,4 +20,43 @@
   }
   
   /* Add more responsive styling as needed */
-  
+  /* Global Styles */
+.perfil {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px; /* Or any space you want to give */
+}
+
+.perfil ion-avatar {
+  --width: 100px;
+  --height: 100px;
+  max-width: 100%; /* Ensures that the avatar is responsive */
+  border-radius: 50%; /* Optional: if you want a circular avatar */
+}
+
+.listaPerfil {
+  padding: 0 5%; /* Responsive padding based on viewport width */
+}
+
+/* Buttons */
+.btn {
+  display: flex;
+  justify-content: center;
+  padding: 10px 0; /* Spacing above and below the button */
+}
+
+.btn ion-button {
+  max-width: 220px;
+  width: 100%; /* Makes button width responsive */
+}
+
+/* Responsiveness */
+@media (min-width: 768px) {
+  .perfil {
+    margin-top: 40px; /* More space on larger screens */
+  }
+
+  .listaPerfil {
+    padding: 0 15%; /* Greater padding on larger screens */
+  }
+}

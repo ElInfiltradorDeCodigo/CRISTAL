@@ -1,10 +1,4 @@
 
-ion-content {
-  --ion-background-color: #fff; /* Define un fondo claro para el contenido */
-  --padding-top: 2rem; /* Añade algo de espacio en la parte superior dentro del contenido */
-  --padding-bottom: 2rem; /* Espacio en la parte inferior para no solapar el contenido con el botón flotante */
-}
-
 /* Ajustes Responsivos para Formularios y Botones */
 ion-list {
   padding-left: 1rem; /* Espaciado al inicio de la lista para evitar que se pegue al borde */
@@ -27,5 +21,22 @@ ion-item {
 @media (min-width: 768px) {
   .btn {
     max-width: 400px; /* Permite que el botón sea más ancho en tabletas y pantallas más grandes */
+  }
+}
+/* Add classes for styling instead of inline styles */
+.update-button {
+  max-width: 200px;
+  width: 100%; /* Makes button width responsive */
+  margin: auto; /* Centrally aligns the button with auto margins */
+}
+
+.datosCambio {
+  padding: 0 5%; /* Add padding for smaller screens and adjust as necessary */
+}
+
+/* Media query for larger screens to adjust padding */
+@media (min-width: 768px) {
+  .datosCambio {
+    padding: 0 10%; /* Increase padding for larger screens */
   }
 }

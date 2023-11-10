@@ -47,7 +47,7 @@ export class ActualizarProductorPage implements OnInit {
 
   async actualizarProductorEnFirebase() {
     const loading = await this.loadingController.create({
-      message: 'Actualizando productor...',
+      message: 'Actualizando cliente...',
     });
     await loading.present();
     
@@ -64,7 +64,7 @@ export class ActualizarProductorPage implements OnInit {
       loading.dismiss();
       this.router.navigate(['/clientes']);
     } catch (error) {
-      console.error("Error al actualizar el productor: ", error);
+      console.error("Error al actualizar el cliente: ", error);
       loading.dismiss();
       this.datosCambiados('Error al actualizar el productor.');
     }

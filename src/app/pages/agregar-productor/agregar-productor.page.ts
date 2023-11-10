@@ -66,7 +66,7 @@ export class AgregarProductorPage implements OnInit {
         async registerProductor(): Promise<void> {
           if (this.empleadoForm.valid && this.selectedImage) {
             const { nombre, apellido_p, apellido_m, telefono, localidad, estado } = this.empleadoForm.value;
-            const loading = await this.presentLoading('Registrando productor...');
+            const loading = await this.presentLoading('Registrando cliente...');
         
             try {
               const email = `${telefono}@progomex.com`;
@@ -96,12 +96,12 @@ export class AgregarProductorPage implements OnInit {
                 password
               });
               loading.dismiss();
-              this.presentToast('Productor registrado con éxito');
+              this.presentToast('Cliente registrado con éxito');
               this.router.navigate(['/clientes']);
             } catch (error) {
               loading.dismiss();
               console.error('Error:', error);
-              this.presentToast('Error al registrar productor');
+              this.presentToast('Error al registrar cliente');
             }
           } else {
             this.presentToast('Por favor, rellena el formulario correctamente');

@@ -27,11 +27,11 @@ export class ClientesPage implements OnInit {
     async presentActionSheet(productor: any) {
     this.selectedProductor = productor;
     const actionSheet = await this.actionSheetCtrl.create({
-      header: 'Opciones De Productor',
+      header: 'Opciones De Cliente',
       backdropDismiss: false,
       buttons: [
         {
-          text: 'Eliminar Productor',
+          text: 'Eliminar Cliente',
           role: 'destructive',
           data: {
             action: 'delete',
@@ -87,7 +87,7 @@ export class ClientesPage implements OnInit {
     }
     const alert = await this.alertController.create({
         header: '¡Advertencia!',
-        message: '¿Realmente desea eliminar este productor?',
+        message: '¿Realmente desea eliminar este cliente?',
         buttons: [
             {
                 text: 'Sí',
@@ -147,7 +147,7 @@ async eliminarProductor(productorKey: string, imageUrl: string) {
       
       await this.db.object(`PRODUCTORES/${productorKey}`).remove();
       
-      this.showToast("Productor eliminado con éxito", 'success');
+      this.showToast("Cliente eliminado con éxito", 'success');
       
   } catch (error) {
       console.error("Error al eliminar productor: ", error);

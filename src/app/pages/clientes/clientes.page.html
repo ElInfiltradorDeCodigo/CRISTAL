@@ -6,19 +6,19 @@
       <ion-icon slot="start" name="search" (click)="toggleSearchBar()"></ion-icon>
       <ion-searchbar *ngIf="showSearchBar" (ionChange)="filterProductores($event)" placeholder="Buscar por nombre o teléfono"></ion-searchbar>
     </ion-buttons>
-    <ion-title>Productores</ion-title>
+    <ion-title>Clientes</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content fullscreen>
 
         <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-          <ion-fab-button [routerLink]="['/agregar-productor']" color="secondary">
+          <ion-fab-button [routerLink]="['/agregar-productor']" color="primary">
             <ion-icon name="person-add"></ion-icon>
           </ion-fab-button>
         </ion-fab>
 
-        <h1>Productores Registrados</h1>
+        <h1>Clientes Registrados</h1>
 
         <ion-list [inset]="true">
           <ion-item *ngFor="let productor of productores | async" (click)="presentActionSheet(productor)">
