@@ -23,11 +23,11 @@ export class InsumosPage implements OnInit {
   
     async presentActionSheet(insumo: any) {
     const actionSheet = await this.actionSheetCtrl.create({
-      header: 'Opciones De Insumo',
+      header: 'Opciones De Producto',
       backdropDismiss: false,
       buttons: [
         {
-          text: 'Eliminar Insumo',
+          text: 'Eliminar Producto',
           role: 'destructive',
           data: {
             action: 'delete',
@@ -80,7 +80,7 @@ export class InsumosPage implements OnInit {
   async eliminacion(insumo: any){
     const alert = await this.alertController.create({
       header: '¡Advertencia!',
-      message: '¿Realmente desea eliminar este insumo?',
+      message: '¿Realmente desea eliminar este producto?',
       buttons: [
         {
           text: 'Sí',
@@ -104,7 +104,7 @@ export class InsumosPage implements OnInit {
   
           this.storage.ref(`insumoImages/${fileName}`).delete().subscribe({
             next: () => {
-              this.presentToast('Insumo eliminado exitosamente', 'success');
+              this.presentToast('Producto eliminado exitosamente', 'success');
             },
             error: (error) => {
               console.error("Error al eliminar la imagen: ", error);

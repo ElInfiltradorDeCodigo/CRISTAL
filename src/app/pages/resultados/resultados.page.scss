@@ -1,13 +1,24 @@
-.pepe{
-
+/* Style for the card title in the prediction card */
+.card-title-prediction {
     text-align: center;
-    align-items: center;
-    margin-top: 15px;
-    margin-bottom: 15px;
-
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 
+/* Style for the predicted value */
 .prediction-value {
-    font-size: 1.0em; 
-    font-weight: bold; 
-  }
+    font-size: 1.0em; /* Adjust the font size as necessary */
+    font-weight: bold;
+}
+
+/* Additional global styles if needed */
+ion-content {
+    text-align: center; /* Centers text for all elements in ion-content */
+}
+
+/* You can add responsiveness with media queries if needed */
+@media (min-width: 768px) {
+    .prediction-value {
+        font-size: 1.2em; /* Larger font size for larger screens */
+    }
+}

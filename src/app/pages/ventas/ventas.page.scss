@@ -1,7 +1,20 @@
+/* Existing styles */
 ion-item {
-    --padding-start: 0;
-  }
+  --padding-start: 0; /* Removes padding at the start of the ion-item */
+}
 
 ion-fab {
-    margin-bottom: 20px;
+  margin-bottom: 20px; /* Adds margin at the bottom of the FAB button */
+}
+
+/* New styles for responsive card layout */
+ion-card {
+  margin: 1rem; /* Adds some margin around the card for spacing */
+}
+
+/* You can use a media query to adjust card layout on larger screens if needed */
+@media (min-width: 768px) {
+  ion-card {
+    /* Adjustments for larger screens can go here */
   }
+}

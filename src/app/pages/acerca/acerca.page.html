@@ -1,114 +1,37 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-menu-button slot="start"></ion-menu-button>
-    </ion-buttons>
-    <ion-title>Acerca De</ion-title>
+    <ion-title>Pronosticos</ion-title>
+    <ion-menu-button slot="start"></ion-menu-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
   <h1>Acerca De</h1>
 
-    <ion-list [inset]="true">
-      <ion-item>
-        <ion-label>Versión Aplicación: Cristal 0.0.3</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label>Compilación: 1.0</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label>Correo Soporte: 20213L001039@utcv.edu.mx</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label>Empresa Desarolladora: 
-          Alucin Software®, 2023</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label>Empresa Cliente: 
-          PROGOMEX S.A de S. L</ion-label>
-      </ion-item>
-    </ion-list>
+  <ion-list class="info-list" [inset]="true">
+    <ion-item>
+      <ion-label>Versión Aplicación: Cristal 0.0.3</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Compilación: 1.0</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Correo Soporte: 20213L001039@utcv.edu.mx</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Empresa Desarolladora: 
+        Alucin Software®, 2023</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Empresa Cliente: 
+        Sin Definir</ion-label>
+    </ion-item>
+  </ion-list>
 
-    <div class="btn">
-      <ion-button expand="block" style="max-width: 200px; margin: 0 auto;" 
-                  color="secondary" [routerLink]="['/dedicatorias']">Dedicatorias</ion-button>
+  <div class="button-container">
+    <ion-button expand="block" class="dedication-button" color="primary" [routerLink]="['/dedicatorias']">Dedicatorias</ion-button>
   </div>
 
-  <ion-content class="ion-padding">
-    <h3 style="align-items: center; text-align: center;">Equipo Desarollador:</h3>
-    <ion-list>
 
-      <ion-item-group>
-        <ion-item-divider (click)="toggleAccordion()">
-          <ion-label style="font-size: larger; color: #6AA84F;">¡Conoce A Los Desarrolladores!</ion-label>
-          <ion-icon slot="end" [name]="isAccordionOpen() ? 'chevron-down' : 'chevron-forward'"></ion-icon>
-        </ion-item-divider>
-
-              <ion-item *ngIf="isAccordionOpen()">
-                <ion-avatar slot="start">
-                  <img src="../../../assets/resources/perfil.jpeg" alt="Programador 1">
-                </ion-avatar>
-                <ion-label>
-                  <h3>Lider Programador:</h3>
-                  <p>Luis Angel Altamirano Gonzalez</p>
-                </ion-label>
-              </ion-item>
-
-              <ion-item *ngIf="isAccordionOpen()">
-                <ion-avatar slot="start">
-                  <img src="assets/avatar1.jpg" alt="Programador 1">
-                </ion-avatar>
-                <ion-label>
-                  <h3>Lider Diseño:</h3>
-                  <p>Eduardo Morales Morales</p>
-                </ion-label>
-              </ion-item>
-
-              <ion-item *ngIf="isAccordionOpen()">
-                <ion-avatar slot="start">
-                  <img src="../../../assets/resources/angelica.jpeg" alt="Programador 1">
-                </ion-avatar>
-                <ion-label>
-                  <h3>Auxiliar Diseño:</h3>
-                  <p>Angelica Lagunes Serna</p>
-                </ion-label>
-              </ion-item>
-
-              <ion-item *ngIf="isAccordionOpen()">
-                <ion-avatar slot="start">
-                  <img src="../../../assets/resources/moises.jpeg" alt="Programador 1">
-                </ion-avatar>
-                <ion-label>
-                  <h3>Lider Metodologia:</h3>
-                  <p>Luis Moises Guiterrez Covarrubias</p>
-                </ion-label>
-              </ion-item>
-
-              <ion-item *ngIf="isAccordionOpen()">
-                <ion-avatar slot="start">
-                  <img src="assets/avatar1.jpg" alt="Programador 1">
-                </ion-avatar>
-                <ion-label>
-                  <h3>Lider Bitacoras:</h3>
-                  <p>Imanol Martinez Manuel</p>
-                </ion-label>
-              </ion-item>
-
-              <ion-item *ngIf="isAccordionOpen()">
-                <ion-avatar slot="start">
-                  <img src="assets/avatar1.jpg" alt="Programador 1">
-                </ion-avatar>
-                <ion-label>
-                  <h3>Lider Documentador:</h3>
-                  <p>Jose Eduardo Ojeda Ortega</p>
-                </ion-label>
-              </ion-item>
-
-            </ion-item-group>
-
-    </ion-list>
   </ion-content>
 
-</ion-content>

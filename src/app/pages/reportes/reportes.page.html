@@ -10,33 +10,32 @@
   <h1>Reportes de Ventas</h1>
 
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-    <ion-fab-button color="secondary" (click)="generateAndDownloadPDF()">
+    <ion-fab-button color="primary" (click)="generateAndDownloadPDF()">
       <ion-icon name="document-text"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 
-  <h3>Insumos Vendidos En Mes Actual</h3>
+  <h3>Productos Vendidos En Mes Actual</h3>
 
-    <div style="display: block;">
-      <canvas baseChart
-              [datasets]="barChartData"
-              [labels]="barChartLabels"
-              [options]="barChartOptions"
-              [legend]="barChartLegend"
-              ></canvas>
-    </div>
+  <div class="chart-container">
+    <canvas baseChart
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [legend]="barChartLegend"
+            ></canvas>
+  </div>
   
-    <script src="node_modules/chart.js/src/chart.js"></script>
+  <h3>Reportes de Ventas</h3>
 
-    <h3>Reportes de Ventas</h3>
-
-    <ion-list>
-      <ion-item *ngFor="let ticket of listaDeTickets">
-        <ion-label>{{ ticket.nombre }}</ion-label>
-        <ion-button fill="outline" (click)="descargarTicket(ticket.url)">
-          Descargar
-        </ion-button>
-      </ion-item>
-    </ion-list>
+  <ion-list>
+    <ion-item *ngFor="let ticket of listaDeTickets">
+      <ion-label>{{ ticket.nombre }}</ion-label>
+      <ion-button fill="outline" (click)="descargarTicket(ticket.url)">
+        Descargar
+      </ion-button>
+    </ion-item>
+  </ion-list>
 
 </ion-content>
+

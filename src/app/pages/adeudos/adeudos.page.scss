@@ -1,0 +1,22 @@
+ion-card {
+    margin: 1rem; /* Adds margin around the card */
+  }
+  
+  /* Responsive text for smaller screens */
+  ion-card-header, ion-card-content {
+    font-size: 0.8em; /* Adjust font size as needed */
+  }
+  
+  /* For larger screens, you can use a media query to increase the font size */
+  @media (min-width: 768px) {
+    ion-card-header, ion-card-content {
+      font-size: 1em; /* Larger text for larger screens */
+    }
+  }
+  
+  /* It's good to have a max-width for ion-col to ensure that on very large screens, it won't get too wide */
+  ion-col {
+    max-width: 600px; /* or whatever maximum width you think is best */
+    width: 100%; /* ensures it takes up the width set by ion-grid columns */
+  }
+  

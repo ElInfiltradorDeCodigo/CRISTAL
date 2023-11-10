@@ -1,10 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-back-button 
-        defaultHref="/ventas"
-        color="secondary">
-      </ion-back-button>
+      <ion-back-button defaultHref="/ventas" color="secondary"></ion-back-button>
     </ion-buttons>
     <ion-title>Detalle Venta</ion-title>
   </ion-toolbar>
@@ -12,45 +9,36 @@
 
 <ion-content>
   <h1>Detalle Venta Realizada:</h1>
-
   <div class="listaPerfil">
-
     <ion-list lines="inset">
       <ion-item>
         <ion-label>Fecha Venta: {{ venta?.fecha }}</ion-label>
-    </ion-item>
-    <ion-item>
+      </ion-item>
+      <ion-item>
         <ion-label>Empleado: {{ venta?.empleado }}</ion-label>
-    </ion-item>
-    <ion-item>
+      </ion-item>
+      <ion-item>
         <ion-label>Cliente: {{ getNombreCompleto(venta?.nombre_cliente) }}</ion-label>
-    </ion-item>
-    <ion-item>
+      </ion-item>
+      <ion-item>
         <ion-label>Monto Total: ${{ venta?.total }}</ion-label>
-    </ion-item>
-      
-    <h3 style="text-align: center; margin-bottom: 20px;">Insumos Vendidos</h3>
-
-<ion-list *ngFor="let producto of venta?.productos">
-    <ion-item button (click)="toggleDetails(producto)" detail="true">
+      </ion-item>
+    </ion-list>
+    <h3 class="section-title">Productos Vendidos</h3>
+    <ion-list *ngFor="let producto of venta?.productos">
+      <ion-item button (click)="toggleDetails(producto)" detail="true">
         {{ producto.nombre }}
-    </ion-item>
-    <div *ngIf="producto.showDetails">
+      </ion-item>
+      <div *ngIf="producto.showDetails">
         <ion-item>
-            <ion-label>Cantidad: {{ producto.cantidad }}</ion-label>
+          <ion-label>Cantidad: {{ producto.cantidad }}</ion-label>
         </ion-item>
         <ion-item>
-            <ion-label>Precio: {{ producto.precio }}</ion-label>
+          <ion-label>Precio: {{ producto.precio }}</ion-label>
         </ion-item>
-    </div>
-</ion-list>
-
-<ion-button expand="block" style="max-width: 200px; margin: 0 auto; margin-top: 15px;" color="secondary" 
-            [disabled]="!venta?.uid" (click)="descargarTicket(venta?.uid)">Descargar Ticket </ion-button>
-
-
-</ion-list>
-
-</div>
-
+      </div>
+    </ion-list>
+    <ion-button expand="block" class="download-button" color="primary" 
+                [disabled]="!venta?.uid" (click)="descargarTicket(venta?.uid)">Descargar Ticket</ion-button>
+  </div>
 </ion-content>

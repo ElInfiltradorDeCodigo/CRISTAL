@@ -1,10 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-back-button 
-        defaultHref="/adeudos"
-        color="secondary">
-      </ion-back-button>
+      <ion-back-button defaultHref="/adeudos" color="secondary"></ion-back-button>
     </ion-buttons>
     <ion-title>Detalle Adeudo</ion-title>
   </ion-toolbar>
@@ -12,9 +9,7 @@
 
 <ion-content>
   <h1>Detalle Adeudo Generado:</h1>
-
   <div class="listaPerfil">
-
     <ion-list lines="inset">
       <ion-item>
         <ion-label>Fecha De La Venta: {{ adeudo.fecha }}</ion-label>
@@ -38,12 +33,11 @@
         <ion-label>Total a Diferir: {{ adeudo.totalDiferir }}</ion-label>
       </ion-item>
     </ion-list>
-
     <div class="btn">
-      <ion-button expand="block" style="max-width: 200px; margin: 0 auto;" 
-                  color="secondary" (click)="pagoRealizado()">Marcar Pago</ion-button>
+      <ion-button expand="block" color="primary" (click)="pagoRealizado()">Marcar Pago</ion-button>
     </div>
   </div>
 </ion-content>
+
 
 

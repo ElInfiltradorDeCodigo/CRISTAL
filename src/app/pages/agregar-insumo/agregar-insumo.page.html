@@ -6,13 +6,13 @@
         color="secondary">
       </ion-back-button>
     </ion-buttons>
-    <ion-title>Registrar Insumo</ion-title>
+    <ion-title>Registrar Producto</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content fullscreen>
 
-  <h1>Registro De Insumo</h1>
+  <h1>Registro De Producto</h1>
 
   <form [formGroup]="empleadoForm">
 
@@ -53,7 +53,7 @@
 
         <div class="btn">
           <ion-button style="max-width: 200px; margin: 0 auto;" [disabled]="empleadoForm.invalid"
-                      color="secondary" (click)="registerProductor()">Registrar Insumo</ion-button>
+                      color="primary" (click)="registerProductor()">Registrar Producto</ion-button>
         </div>
 
 </ion-list>

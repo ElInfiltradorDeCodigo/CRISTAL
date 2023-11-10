@@ -23,7 +23,7 @@ export class AppComponent {
     { title: 'Departamentos', url: '/departamentos', icon: 'briefcase' },
     { title: 'Empleados', url: '/empleados', icon: 'people' },
     { title: 'Clientes', url: '/clientes', icon: 'people-circle' },
-    { title: 'Insumos', url: '/insumos', icon: 'layers' },
+    { title: 'Productos', url: '/insumos', icon: 'layers' },
     { title: 'Ventas', url: '/ventas', icon: 'wallet' },
     { title: 'Adeudos', url: '/adeudos', icon: 'cash' },
     { title: 'Reportes', url: '/reportes', icon: 'document-text' },

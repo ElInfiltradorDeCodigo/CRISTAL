@@ -1,91 +1,23 @@
-.ion-padding{
-    
-    text-align: center;
-    align-items: center;
-    margin-top: 35px;
-
+/* Global styles for alignment */
+ion-content {
+    text-align: center; /* Centers text globally for ion-content */
 }
 
-.Acordeon{
-    
-    align-items: center;
-    align-self: center;
-    align-content: center;
-    margin:0 auto;
-    margin-bottom: auto;
-
+/* Specific style for the chart container to replace inline style */
+.chart-container {
+    display: block;
+    margin: 0 auto; /* Centers the chart */
 }
 
-.boton{
-
-    text-align: center;
-    align-items: center;
-    margin-top: 35px;
-    margin-bottom: 35px;
-
-}
-
-.Cartas{
-
-    text-align: center;
-    align-items: center;
-    margin-top: 15px;
-
-}
-
-h1{
-
-    text-align: center;
-    align-items: center;
-    margin-top: 15px;
-    margin-bottom: 15px;
-
-}
-
-.Carta{
-
-    align-items: center;
-    align-self: center;
-    align-content: center;
-    margin:0 auto;
-
-}
-
-.Ejemplo{
-
-    text-align: center;
-    align-items: center;
-    margin-top: 35px;
-
-}
-
-.Chequer{
-
-    text-align: center;
-    align-items: center;
-    margin-top: 15px;
-    list-style-type: armenian;
-
-}
-
-h3{
-
-    text-align: center;
-    align-items: center;
-    margin-top: 25px;
-    margin-bottom: 15px;
-
-}
-
-.imagenPato{
-
-    align-items: center;
-    align-self: center;
-    align-content: center;
-    margin:0 auto;
-
-}
-
+/* Style for FAB positioned at the bottom right */
 ion-fab {
-    margin-bottom: 20px;
-  }
+    margin-bottom: 20px; /* Adds margin at the bottom of the FAB */
+}
+
+/* Style headings */
+h1, h3 {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+/* Remove unused CSS classes if they are not being utilized elsewhere in your project */

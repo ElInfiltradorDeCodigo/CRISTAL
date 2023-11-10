@@ -1,29 +1,53 @@
-ion-content {
-    background-color: #f5f5f5;
-  }
-  
-  ion-list {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  ion-item {
-    border-bottom: 1px solid #ccc;
-  }
-  
-  ion-item:last-child {
-    border-bottom: none;
-  }
-  
-  ion-avatar {
-    width: 64px;
-    height: 64px;
-  }
-  
-  ion-label {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  
+/* Styles for the about page content */
+.about-content {
+  background-color: #f5f5f5;
+  padding: 15px;
+  text-align: center;
+}
+
+/* Styles for the information list */
+.info-list {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Styles for developer list and items */
+.developer-list ion-item-divider {
+  font-size: larger; 
+  color: #6AA84F;
+}
+
+.developer-list ion-avatar {
+  --size: 64px; /* Use Ionic's built-in CSS variables for size */
+}
+
+/* Styles for labels to handle text overflow */
+ion-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Remove border for the last item */
+ion-item:last-child {
+  border-bottom: none;
+}
+
+/* Centered button container */
+.button-container {
+  text-align: center;
+  padding: 15px 0;
+}
+
+/* Dedication button styling */
+.dedication-button {
+  max-width: 200px;
+  margin: 0 auto;
+}
+
+/* Team header style */
+.team-header {
+  margin-top: 25px;
+  margin-bottom: 15px;
+}

@@ -1,9 +1,27 @@
+/* Estilos responsivos para las tarjetas y las imágenes */
 .mis-tarjetas {
-    height: 350px; /* Tamaño de altura fijo */
-    overflow-y: auto; /* Agrega una barra de desplazamiento vertical cuando sea necesario */
-    /* Otros estilos según sea necesario */
-  }
+  display: flex;
+  flex-direction: column;
+  height: auto; /* Altura auto para que crezca con el contenido */
+  overflow-y: auto; /* Para el scrolling vertical */
+  margin-bottom: 1rem; /* Espaciado al final de la tarjeta */
+}
 
-  ion-fab {
-    margin-bottom: 20px;
+.mis-tarjetas img {
+  max-width: 100%; /* Ancho máximo del 100% del padre */
+  height: auto; /* Altura auto para mantener la proporción */
+  object-fit: cover; /* Cubrirá el área asignada sin perder la proporción */
+  border-radius: 4px; /* Opcional: para bordes redondeados */
+}
+
+ion-fab {
+  margin-bottom: 20px;
+}
+
+/* Media queries para ajustar las tarjetas en pantallas más grandes */
+@media (min-width: 768px) {
+  .mis-tarjetas {
+    max-width: 500px; /* O un máximo que se ajuste a tu diseño */
+    margin: auto; /* Centrado automático en la vista */
   }
+}

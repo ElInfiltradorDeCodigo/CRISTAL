@@ -1,0 +1,12 @@
+/* Style for the submit button container to replace inline styles */
+.button-container {
+    text-align: center;
+  }
+  
+  /* Style for the submit button to make it responsive */
+  .submit-button {
+    max-width: 200px; /* Sets a max-width for the button */
+    width: 100%; /* Ensures the button width is responsive */
+    margin: 0 auto; /* Centers the button */
+  }
+  

@@ -51,6 +51,11 @@ h3{
   }
 }
 
+ion-col {
+  max-width: 600px; /* or whatever maximum width you think is best */
+  width: 100%; /* ensures it takes up the width set by ion-grid columns */
+}
+
 /* Core CSS required for Ionic components to work properly */
 @import "@ionic/angular/css/core.css";
 

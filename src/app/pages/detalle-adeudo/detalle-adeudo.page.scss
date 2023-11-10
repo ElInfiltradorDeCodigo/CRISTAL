@@ -1,0 +1,19 @@
+.listaPerfil {
+    padding: 0 5%; /* Responsive padding */
+  }
+  
+  
+  /* Style for the button container to remove inline styles */
+  .btn {
+    display: flex; /* Uses flexbox for alignment */
+    justify-content: center; /* Centers the button horizontally */
+    padding: 1rem; /* Provides padding around the button */
+  }
+  
+  /* Style for the button to remove inline styles and make it responsive */
+  .btn ion-button {
+    max-width: 200px; /* Sets a max-width for larger screens */
+    width: 100%; /* Ensures the button width is responsive */
+    margin-top: 15px; /* Adds space above the button */
+  }
+  
