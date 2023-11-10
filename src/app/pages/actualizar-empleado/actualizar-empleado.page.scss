@@ -1,17 +1,38 @@
+/* Estilos Generales */
+.page-title {
+  text-align: center;
+  padding: 16px;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
 
-.btn{
+/* Estilos de Formulario y Botones */
+.datosCambio {
+  padding: 16px;
+}
 
-    padding: 10px 20px 10px 20px;
-    border-radius: 10px;
-    text-align: center;
-    //color: #6AA84F;
+ion-item {
+  --padding-start: 0;
+  --min-height: 50px; /* Altura mínima para facilitar la interacción táctil */
+}
 
+.action-button {
+  max-width: 200px; /* Ancho máximo del botón para mantener la consistencia */
+  margin: 20px auto; /* Centra el botón en el formulario y añade margen superior e inferior */
+}
+
+/* Estilos de Toast Customizado */
+.toast-custom {
+  background-color: #333;
+  color: #fff;
+  font-size: 1.6rem; /* Más adecuado para diferentes tamaños de pantalla */
+  border-radius: 10px;
+  padding: 16px;
+}
+
+/* Media Queries para diferentes tamaños de pantalla */
+@media (min-width: 768px) {
+  .action-button {
+    max-width: 300px; /* Permite que el botón sea más ancho en tabletas y pantallas más grandes */
   }
-
-  .toast-custom {
-    background-color: #333;
-    color: #fff;
-    font-size: 26px;
-    border-radius: 10px;
-    padding: 16px;
-  }
+}

@@ -1,41 +1,63 @@
 
-h1{
-
+  
+  .datosCambio {
     text-align: center;
-    align-items: center;
-    margin-top: 15px;
-    margin-bottom: 15px;
-
-}
-
-.datosCambio{
-
-    text-align: center;
-    align-items: center;
-
-}
-
-h3{
-
-    text-align: center;
-    align-items: center;
-    margin-top: 15px;
-
-}
-
-.btn{
-
-    padding: 10px 20px 10px 20px;
-    border-radius: 10px;
-    text-align: center;
-    //color: #6AA84F;
-
+    padding: 1rem; /* Añade algo de relleno alrededor de los elementos del formulario */
   }
-
-  .toast-custom {
-    background-color: #333;
-    color: #fff;
-    font-size: 26px;
-    border-radius: 10px;
-    padding: 16px;
+  
+  ion-item {
+    --padding-start: 1rem;
+    --inner-padding-end: 1rem;
+    --min-height: 3rem;
+    --detail-arrow-hover-opacity: 0.8; /* Ajusta la opacidad del botón de retorno */
+    margin-bottom: 1rem; /* Añade margen inferior para separar elementos */
   }
+  
+  ion-label {
+    --ion-color-primary: #3880ff; /* Personaliza el color para que coincida con tu tema */
+  }
+  
+  ion-input {
+    --padding-start: 0.5rem;
+    --padding-end: 0.5rem;
+    --padding-top: 0.5rem;
+    --padding-bottom: 0.5rem;
+  }
+  
+  .btn {
+    padding: 1rem;
+    border-radius: 0.5rem; /* Radios de esquina consistentes */
+    text-align: center;
+    width: auto; /* Deja que el botón se expanda según el contenido */
+    max-width: 90%; /* Asegúrate de que no se expanda más del 90% del ancho de pantalla */
+    margin: 1rem auto; /* Centra el botón horizontalmente */
+  }
+  
+  /* Media Queries */
+  @media only screen and (min-width: 320px) {
+    /* Pequeños ajustes para teléfonos */
+  }
+  
+  @media only screen and (min-width: 768px) {
+    /* Ajustes para tabletas */
+    h1 {
+      font-size: 2rem; /* Tamaño de fuente más grande para mejor lectura en tabletas */
+    }
+  
+  }
+  
+  @media only screen and (min-width: 1024px) {
+    /* Ajustes para escritorio */
+    .datosCambio {
+      padding: 2rem; /* Más relleno para aprovechar el espacio adicional */
+    }
+  
+    h1 {
+      font-size: 2.5rem; /* Tamaño de fuente más grande para encabezados en escritorio */
+    }
+  
+    .btn {
+      max-width: 400px; /* Tamaño máximo del botón más apropiado para escritorios */
+    }
+  }
+  

@@ -1,7 +1,47 @@
+
+ion-content {
+  --background: var(--ion-background-color, #fff); /* Define un color de fondo consistente */
+}
+
+/* Estilos para los ítems */
 ion-item {
-    --padding-start: 0;
+  --padding-start: 16px; /* Agrega algo de relleno para empezar */
+  --padding-end: 16px; /* Agrega algo de relleno al final */
+  --min-height: 50px; /* Altura mínima para tocar fácilmente */
+  --detail-icon-color: var(--ion-color-primary); /* Color para el ícono de detalle */
+  --border-color: var(--ion-item-border-color, #c8c7cc); /* Un borde sutil para los ítems */
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Estilos para la tarjeta */
+ion-card {
+  margin: 16px; /* Añade margen alrededor de las tarjetas para que no toquen los bordes de la pantalla */
+  box-shadow: 1px 1px 5px rgba(0,0,0,0.1); /* Sombra suave para dar profundidad */
+}
+
+/* Estilos para el FAB */
+ion-fab {
+  
+  margin: 1rem; /* Espaciado estándar desde la esquina inferior */
+  position: fixed; /* Posicionamiento fijo en la pantalla */
+  z-index: 999; /* Asegura que el FAB esté por encima de otros elementos */
+}
+
+/* Ajustes Responsivos */
+@media (max-width: 576px) {
+  /* Para dispositivos móviles, los elementos pueden necesitar ajustes en el tamaño y el espaciado */
+  ion-card {
+    margin: 8px; /* Menos margen para pantallas pequeñas */
   }
 
-ion-fab {
-    margin-bottom: 20px;
+  ion-fab {
+    --size: 50px; /* Un tamaño de FAB más pequeño para dispositivos móviles */
   }
+}
+
+@media (min-width: 576px) {
+  /* Para tabletas y pantallas más grandes, puedes querer más espaciado o tamaños más grandes */
+  ion-card {
+    margin: 24px; /* Más margen para pantallas grandes */
+  }
+}

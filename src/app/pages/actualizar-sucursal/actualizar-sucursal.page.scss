@@ -1,17 +1,41 @@
+/* CSS Base */
 
-.btn{
+.image-upload {
+  width: 95px;
+  height: 95px;
+  cursor: pointer;
+  display: block;
+  margin: 10px auto; /* Ajustado para centrar la imagen */
+}
 
-    padding: 10px 20px 10px 20px;
-    border-radius: 10px;
-    text-align: center;
-    //color: #6AA84F;
+/* Botón de actualización */
+.update-button {
+  max-width: 200px; /* Define el ancho máximo para el botón */
+  margin: 0 auto; /* Centra el botón */
+}
 
+.btn {
+  padding: 10px 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+/* Toast customizado */
+.toast-custom {
+  background-color: #333;
+  color: #fff;
+  font-size: 26px;
+  border-radius: 10px;
+  padding: 16px;
+}
+
+/* Responsive adjustments */
+@media (min-width: 768px) {
+  .image-upload {
+    width: 150px; /* Tamaño más grande para tabletas y escritorio */
+    height: 150px;
   }
-
   .toast-custom {
-    background-color: #333;
-    color: #fff;
-    font-size: 26px;
-    border-radius: 10px;
-    padding: 16px;
+    font-size: 1.6rem; /* Tamaño de fuente ajustado para dispositivos más grandes */
   }
+}

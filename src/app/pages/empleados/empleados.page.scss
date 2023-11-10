@@ -1,15 +1,33 @@
-.live {
-
+/* Estilos para la página completa y títulos */
+.page-title {
     text-align: center;
-    font-size: x-large;
-    font-style: normal;
-    align-self: center;
-    padding: 10px 20px 10px 20px;
-    justify-content: center;
-    justify-self: center;
-    align-items: center;
-}
-
-ion-fab {
-    margin-bottom: 20px;
+    font-size: 1.5rem; /* x-large puede ser muy grande para algunos dispositivos */
+    
+    padding: 16px; /* Agrega un poco de relleno para separar del contenido */
   }
+  
+  /* Estilos para las imágenes de los empleados */
+  .employee-thumbnail img {
+    width: 65px; /* Define el ancho */
+    height: 65px; /* y la altura de la imagen del empleado */
+    object-fit: cover; /* Asegúrate de que las imágenes cubran el área del thumbnail */
+    border-radius: 50%; /* Opcional: haz que las imágenes sean circulares */
+  }
+  
+  /* Estilos para los detalles de los empleados */
+  .employee-details h2 {
+    margin: 0; /* Elimina el margen por defecto de h2 */
+    font-size: 1rem; /* Define un tamaño de fuente estándar para los detalles */
+    font-weight: normal; /* El peso normal del texto para los detalles */
+  }
+  
+  .employee-details p {
+    margin: 0; /* Elimina el margen por defecto del párrafo */
+    color: var(--ion-color-medium); /* Color secundario para información menos importante */
+  }
+  
+  /* Estilos para el FAB */
+  ion-fab {
+    margin: 1rem; /* Espacio uniforme alrededor del FAB */
+  }
+  

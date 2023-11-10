@@ -1,0 +1,35 @@
+/* CSS file */
+
+.image-upload-preview {
+    width: 95px;
+    height: 95px;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 15px;
+  }
+  
+  .register-button {
+    max-width: 200px;
+    margin: 0 auto; /* Centers the button with automatic margins */
+    display: block; /* Ensures button width is governed by max-width */
+  }
+  
+  .form-action {
+    padding: 20px; /* Adds padding inside the action area */
+    text-align: center; /* Centers the content */
+  }
+  
+  /* Use Ionic CSS utilities for padding and margin as needed */
+  ion-item {
+    --padding-start: 0;
+    --min-height: 50px; /* Enhances tap target size for mobile users */
+  }
+  
+  /* Responsive adjustments */
+  @media (min-width: 576px) {
+    /* Adjustments for larger screens can be made here */
+  }
+  
+  /* Additional styles for list items and labels can be added as necessary */
+  

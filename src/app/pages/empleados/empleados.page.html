@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-back-button color="secondary"></ion-back-button>
+      <ion-back-button color="primary"></ion-back-button>
       <ion-menu-button slot="start"></ion-menu-button>
       <ion-icon slot="start" name="search" (click)="toggleSearchBar()"></ion-icon>
       <ion-searchbar *ngIf="showSearchBar" (ionChange)="filterEmpleados($event)" placeholder="Buscar por nombre, correo o teléfono"></ion-searchbar>
@@ -13,7 +13,7 @@
 <ion-content fullscreen>
 
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-    <ion-fab-button [routerLink]="['/agregar-empleado']" color="secondary">
+    <ion-fab-button [routerLink]="['/agregar-empleado']" color="primary">
       <ion-icon name="person-add"></ion-icon>
     </ion-fab-button>
   </ion-fab>

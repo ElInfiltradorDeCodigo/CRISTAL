@@ -1,16 +1,55 @@
-.eliminar{
-
-    color: red;
+/* Estilos Base para Texto y Botones de Acción */
+.eliminar {
+  color: var(--ion-color-danger, red); /* Usa una variable de Ionic para mantener la coherencia */
 }
 
 ion-fab {
-    margin-bottom: 20px;
-  }
+  --bottom: 1rem; /* Utiliza unidades relativas para el espaciado */
+  --right: 1rem;
+  position: fixed; /* Asegúrate de que el botón flotante está correctamente posicionado */
+  z-index: 999; /* Coloca el FAB por encima de otros elementos si es necesario */
+}
 
-  ion-card img {
-    width: 100%;  // Asegura que la imagen siempre tome el 100% del ancho del contenedor.
-    height: 150px;  // Puedes ajustar esto a tu preferencia.
-    object-fit: cover;  // Asegura que la imagen cubra el área sin estirarse.
-    border-top-left-radius: 10px;  // Añadir bordes redondeados si tu ion-card tiene alguno.
-    border-top-right-radius: 10px;  // Añadir bordes redondeados si tu ion-card tiene alguno.
+/* Estilos para Imágenes de Sucursales */
+ion-card img {
+  width: 100%;
+  height: auto; /* Utiliza altura automática para mantener la proporción de aspecto */
+  object-fit: cover;
+  border-top-left-radius: var(--ion-card-border-radius, 0); /* Utiliza variables de Ionic */
+  border-top-right-radius: var(--ion-card-border-radius, 0);
+}
+
+/* Estilos para las Tarjetas de Sucursales */
+ion-card {
+  margin-bottom: 1rem; /* Añade un margen inferior para separar las tarjetas */
+  border-radius: var(--ion-card-border-radius, 10px); /* Utiliza variables para bordes redondeados */
+  box-shadow: var(--ion-box-shadow, 0 4px 8px rgba(0,0,0,0.1)); /* Sombra para dar profundidad */
+}
+
+/* Estilos para los Encabezados de las Tarjetas */
+ion-card-header {
+  padding: 1rem; /* Añade relleno para separar el contenido del borde de la tarjeta */
+}
+
+/* Ajustes para Responsividad */
+@media (min-width: 576px) { /* Puntos de ruptura para pantallas pequeñas (por ejemplo, tabletas verticales) */
+  ion-fab {
+      --bottom: 1.5rem;
+      --right: 1.5rem;
+  }
+}
+
+@media (min-width: 768px) { /* Puntos de ruptura para tabletas horizontales */
+  /* Ajustes específicos para tabletas aquí si son necesarios */
+}
+
+@media (min-width: 992px) { /* Puntos de ruptura para vistas de escritorio pequeñas */
+  /* Ajustes específicos para escritorio aquí si son necesarios */
+}
+
+/* Asegúrate de que los colores y sombras estén definidos en variables.scss */
+:root {
+  --ion-color-danger: #ff3b30;
+  --ion-card-border-radius: 10px;
+  --ion-box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
